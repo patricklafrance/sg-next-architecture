@@ -1,0 +1,14 @@
+packages:
+  - apps/**
+  - packages/**
+  - smoke-tests
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - esbuild
+  - msw
+  - netlify-cli
+  - protobufjs
+  - sharp
+  - unix-dgram

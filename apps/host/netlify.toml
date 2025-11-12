@@ -1,0 +1,33 @@
+[build]
+    publish = "apps/cdn/dist/app"
+    command = "pnpm build-cdn"
+    edge_functions = "apps/cdn/dist/netlify/edge-functions"
+
+[build.environment]
+    NPM_CONFIG_USERCONFIG = ".npmrc-netlify"
+
+# This needs to be set BEFORE the specific headers
+# We used to put the wildcard at the end, but after opening a support ticket with Netlify, they suggested that we switch
+# the order of the headers to ensure that the wildcard is processed first. It seemed to fix the issue with the manifest not being served correctly.
+# We're still waiting for confirmation from the devs that this is the expected behavior, but in the meantime we fixed the broken behavior.
+[[headers]]
+    for = "/*.(js|css|webp|png|jpg|jpeg|svg|gif)"
+    [headers.values]
+        Cache-Control = "public, max-age=31536000, immutable"
+        Access-Control-Allow-Origin = "*"
+
+[[headers]]
+    for = "/manifest.json"
+    [headers.values]
+        Cache-Control = "public, max-age=60, must-revalidate"
+        Access-Control-Allow-Origin = "*"
+
+[[headers]]
+    for = "/manifest.js"
+    [headers.values]
+        Cache-Control = "public, max-age=60, must-revalidate"
+        Access-Control-Allow-Origin = "*"
+
+[[edge_functions]]
+    path = "/*"
+    function = "skew-protection"
