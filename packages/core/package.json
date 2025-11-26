@@ -1,6 +1,6 @@
 {
     "name": "@packages/core",
-    "description": "Core package for the apps and modules.",
+    "description": "Core package for non-module specific code.",
     "private": true,
     "version": "0.0.0",
     "type": "module",

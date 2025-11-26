@@ -11,6 +11,8 @@ const storybookConfig: StorybookConfig = {
     ],
     stories: [
         "../../host/src/**/*.stories.tsx",
+        "../../home/modules/management/src/**/*.stories.tsx",
+        "../../home/modules/migration/src/**/*.stories.tsx",
         "../../../packages/**/src/**/*.stories.tsx"
     ],
     staticDirs: ["public"],

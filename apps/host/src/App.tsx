@@ -1,4 +1,4 @@
-import { AppRouter } from "@packages/core-squide";
+import { AppRouter } from "@packages/core-module";
 
 export function App() {
     return (

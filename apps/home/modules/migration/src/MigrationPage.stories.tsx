@@ -1,20 +1,15 @@
 import { initializeFireflyForStorybook, withModuleDecorator } from "@packages/core-module";
 import type { Meta, StoryObj } from "storybook-react-rsbuild";
-import { HomePage } from "./HomePage.tsx";
-import { registerHost } from "./registerHost.tsx";
+import { MigrationPage } from "./MigrationPage.tsx";
+import { registerMigration } from "./registerMigration.tsx";
 
 const fireflyRuntime = initializeFireflyForStorybook({
-    localModules: [registerHost]
+    localModules: [registerMigration]
 });
 
-console.log("************************");
-console.log("************************");
-console.log("************************");
-console.log("************************");
-
 const meta = {
-    title: "Host/Pages/HomePage",
-    component: HomePage,
+    title: "Home/Migration/Pages/MigrationPage",
+    component: MigrationPage,
     decorators: [
         withModuleDecorator(fireflyRuntime)
     ],
@@ -25,7 +20,7 @@ const meta = {
             ]
         }
     }
-} satisfies Meta<typeof HomePage>;
+} satisfies Meta<typeof MigrationPage>;
 
 export default meta;
 

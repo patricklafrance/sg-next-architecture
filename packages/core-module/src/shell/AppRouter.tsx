@@ -2,7 +2,7 @@ import { Div, HopperProvider } from "@hopper-ui/components";
 import { AppRouter as FireflyAppRouter, useIsBootstrapping } from "@squide/firefly";
 import { createBrowserRouter, Outlet } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import { RootErrorBoundary } from "./RootErrorBoundary.js";
+import { RootErrorBoundary } from "./RootErrorBoundary.tsx";
 
 function BootstrappingRoute() {
     if (useIsBootstrapping()) {

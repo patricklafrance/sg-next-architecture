@@ -1,7 +1,7 @@
 import "./index.css";
 
-import { registerShell } from "@packages/core-squide";
-import { EnvironmentVariablesPlugin, type EnvironmentVariables } from "@squide/env-vars";
+import { getEnvironmentVariables, registerShell } from "@packages/core-module";
+import { EnvironmentVariablesPlugin } from "@squide/env-vars";
 import { FireflyProvider, initializeFirefly } from "@squide/firefly";
 import { BrowserConsoleLogger, RootLogger } from "@workleap/logging";
 import { LogRocketLogger } from "@workleap/logrocket";
@@ -13,11 +13,7 @@ import { getActiveModules } from "./getActiveModules.ts";
 import { QueryProvider } from "./QueryProvider.tsx";
 import { registerHost } from "./registerHost.tsx";
 
-const environmentVariables = {
-    hostApiBaseUrl: "/host/api",
-    managementApiBaseUrl: "/management/api",
-    migrationApiBaseUrl: "/migration/api"
-} satisfies EnvironmentVariables;
+const environmentVariables = getEnvironmentVariables("msw");
 
 const loggers: RootLogger[] = [new BrowserConsoleLogger()];
 
@@ -62,6 +58,7 @@ const telemetryClient = initializeTelemetry(telemetryOptions);
 const activeModules = getActiveModules(process.env.MODULES);
 
 const fireflyRuntime = initializeFirefly({
+    mode: "development",
     useMsw: !!process.env.USE_MSW,
     localModules: [registerShell, registerHost, ...activeModules],
     startMsw: async runtime => {
