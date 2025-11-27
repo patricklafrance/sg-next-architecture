@@ -1,4 +1,4 @@
-import { EnvironmentVariables } from "@squide/env-vars";
+import { EnvironmentVariables } from "@squide/firefly";
 
 export type Environment = "msw";
 

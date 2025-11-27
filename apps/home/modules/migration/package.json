@@ -12,11 +12,10 @@
         "typecheck": "tsc"
     },
     "peerDependencies": {
-        "@hopper-ui/components": "^1.16.0",
+        "@hopper-ui/components": "^1.16.1",
         "@hopper-ui/icons": "^2.10.4",
         "@hopper-ui/styled-system": "^2.5.14",
-        "@squide/env-vars": "^1.4.8",
-        "@squide/firefly": "^16.0.2",
+        "@squide/firefly": "^16.0.3",
         "@squide/firefly-rsbuild-storybook": "^0.0.1",
         "@tanstack/react-query": "^5.90.11",
         "msw": "^2.12.3",
@@ -37,7 +36,7 @@
         "@workleap/typescript-configs": "3.0.7",
         "eslint": "9.39.1",
         "msw": "2.12.3",
-        "storybook-react-rsbuild": "2.1.6",
+        "storybook-react-rsbuild": "3.0.0",
         "typescript": "5.9.3",
         "typescript-eslint": "8.48.0"
     }
