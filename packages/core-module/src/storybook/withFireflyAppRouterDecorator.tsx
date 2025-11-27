@@ -36,13 +36,13 @@ export function FireflyAppRouterDecorator(props: FireflyAppRouterDecoratorProps)
                                     element: rootRoute,
                                     children: [
                                         {
-                                            path: "/my-route",
+                                            path: "/story",
                                             element: story
                                         }
                                     ]
                                 }
                             ], {
-                                initialEntries: ["/my-route"]
+                                initialEntries: ["/story"]
                             })}
                             {...routerProviderProps}
                         />
