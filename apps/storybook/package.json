@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "postinstall": "pnpm msw init",
-        "dev": "storybook dev -p 6006",
+        "dev": "storybook dev -p 6006 --disable-telemetry",
         "build": "storybook build --disable-telemetry",
         "serve-build": "pnpm http-server storybook-static -p 8080 -P http://localhost:8080? -c-1",
         "eslint": "eslint . --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
@@ -16,17 +16,20 @@
     "dependencies": {
         "@hopper-ui/components": "1.16.0",
         "@hopper-ui/styled-system": "2.5.14",
+        "@storybook/addon-a11y": "10.1.0",
         "msw": "2.12.3",
+        "msw-storybook-addon": "2.0.6",
         "react": "19.2.0",
         "react-aria": "3.44.0",
         "react-aria-components": "1.13.0",
         "react-dom": "19.2.0",
-        "react-router": "7.9.6"
+        "react-router": "7.9.6",
+        "storybook": "10.1.0",
+        "storybook-react-rsbuild": "2.1.6"
     },
     "devDependencies": {
         "@eslint/js": "9.39.1",
         "@rsbuild/core": "1.6.9",
-        "@storybook/addon-a11y": "10.1.0",
         "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
         "@typescript-eslint/parser": "8.48.0",
@@ -36,12 +39,6 @@
         "chromatic": "13.3.4",
         "eslint": "9.39.1",
         "http-server": "14.1.1",
-        "msw": "2.12.3",
-        "msw-storybook-addon": "2.0.6",
-        "react-aria": "3.44.0",
-        "react-aria-components": "1.13.0",
-        "storybook": "10.1.0",
-        "storybook-react-rsbuild": "2.1.6",
         "typescript": "5.9.3",
         "typescript-eslint": "8.48.0"
     },

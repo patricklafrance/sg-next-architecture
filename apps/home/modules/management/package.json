@@ -17,6 +17,7 @@
         "@hopper-ui/styled-system": "^2.5.14",
         "@squide/env-vars": "^1.4.8",
         "@squide/firefly": "^16.0.2",
+        "@squide/firefly-rsbuild-storybook": "^0.0.1",
         "@tanstack/react-query": "^5.90.11",
         "msw": "^2.12.3",
         "react": "^19.2.0",

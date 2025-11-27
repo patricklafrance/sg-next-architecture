@@ -1,4 +1,5 @@
-import { initializeFireflyForStorybook, withModuleDecorator } from "@packages/core-module";
+import { withModuleDecorator } from "@packages/core-module";
+import { initializeFireflyForStorybook } from "@squide/firefly-rsbuild-storybook";
 import type { Meta, StoryObj } from "storybook-react-rsbuild";
 import { MigrationPage } from "./MigrationPage.tsx";
 import { registerMigration } from "./registerMigration.tsx";

@@ -1,6 +1,5 @@
+import { FireflyDecorator, StorybookRuntime } from "@squide/firefly-rsbuild-storybook";
 import { Decorator } from "storybook-react-rsbuild";
-import { StorybookRuntime } from "./StorybookRuntime.ts";
-import { FireflyDecorator } from "./withFireflyDecorator.tsx";
 import { HopperDecorator } from "./withHopperDecorator.tsx";
 import { QueryDecorator } from "./withQueryDecorator.tsx";
 

@@ -1,7 +1,6 @@
 import "./index.css";
 
 import { getEnvironmentVariables, registerShell } from "@packages/core-module";
-import { EnvironmentVariablesPlugin } from "@squide/env-vars";
 import { FireflyProvider, initializeFirefly } from "@squide/firefly";
 import { BrowserConsoleLogger, RootLogger } from "@workleap/logging";
 import { LogRocketLogger } from "@workleap/logrocket";
@@ -66,11 +65,7 @@ const fireflyRuntime = initializeFirefly({
         // unused MSW stuff to the code bundles.
         return (await import("./startMsw.ts")).startMsw(runtime.requestHandlers);
     },
-    plugins: [
-        x => new EnvironmentVariablesPlugin(x, {
-            environmentVariables
-        })
-    ],
+    environmentVariables,
     honeycombInstrumentationClient: telemetryClient.honeycomb,
     loggers
 });

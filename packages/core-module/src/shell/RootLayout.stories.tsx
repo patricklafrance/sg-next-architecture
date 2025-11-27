@@ -1,6 +1,5 @@
+import { initializeFireflyForStorybook, withFireflyDecorator } from "@squide/firefly-rsbuild-storybook";
 import type { Meta, StoryObj } from "storybook-react-rsbuild";
-import { initializeFireflyForStorybook } from "../storybook/initializeFireflyForStorybook.ts";
-import { withFireflyAppRouterDecorator } from "../storybook/withFireflyAppRouterDecorator.tsx";
 import { withHopperDecorator } from "../storybook/withHopperDecorator.tsx";
 import { RootLayout } from "./RootLayout.tsx";
 
@@ -21,7 +20,7 @@ const meta = {
     title: "Shell/RootLayout",
     component: RootLayout,
     decorators: [
-        withFireflyAppRouterDecorator(fireflyRuntime),
+        withFireflyDecorator(fireflyRuntime),
         withHopperDecorator()
     ]
 } satisfies Meta<typeof RootLayout>;
