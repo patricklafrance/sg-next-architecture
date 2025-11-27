@@ -2,7 +2,10 @@
     "extends": "@workleap/typescript-configs/web-application.json",
     "compilerOptions": {
         "incremental": true,
-        "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+        "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+        "types": [
+            "../../packages/core-module/env-vars.d.ts",
+        ]
     },
     "include": ["**/*", ".storybook/**/*"],
     "exclude": ["dist", "node_modules", "storybook-static"]

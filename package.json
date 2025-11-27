@@ -9,10 +9,10 @@
     "scripts": {
         "dev-host": "turbo run dev --filter=@apps/host",
         "dev-host-msw": "cross-env USE_MSW=true pnpm dev-host",
-        "dev-management": "cross-env MODULES=management pnpm dev-host",
-        "dev-management-msw": "cross-env USE_MSW=true MODULES=management pnpm dev-host",
-        "dev-migration": "cross-env MODULES=migration pnpm dev-host",
-        "dev-migration-msw": "cross-env USE_MSW=true MODULES=migration pnpm dev-host",
+        "dev-management": "cross-env MODULES=home/management pnpm dev-host",
+        "dev-management-msw": "cross-env USE_MSW=true MODULES=home/management pnpm dev-host",
+        "dev-migration": "cross-env MODULES=home/migration pnpm dev-host",
+        "dev-migration-msw": "cross-env USE_MSW=true MODULES=home/migration pnpm dev-host",
         "dev-storybook": "turbo run dev --filter=@apps/storybook",
         "build-host": "turbo run build --filter=@apps/host",
         "build-storybook": "turbo run build-storybook --",
@@ -36,18 +36,18 @@
         "update-outdated-deps:update-peers": "syncpack fix-mismatches"
     },
     "devDependencies": {
-        "@eslint/js": "9.38.0",
-        "@types/node": "24.9.2",
-        "@typescript-eslint/parser": "8.46.2",
+        "@eslint/js": "9.39.1",
+        "@types/node": "24.10.1",
+        "@typescript-eslint/parser": "8.48.0",
         "@workleap/eslint-configs": "1.1.5",
         "@workleap/typescript-configs": "3.0.7",
         "cross-env": "10.1.0",
-        "eslint": "9.38.0",
-        "netlify-cli": "23.9.5",
+        "eslint": "9.39.1",
+        "netlify-cli": "23.12.1",
         "syncpack": "13.0.4",
-        "turbo": "2.5.8",
+        "turbo": "2.6.1",
         "typescript": "5.9.3",
-        "typescript-eslint": "8.46.2"
+        "typescript-eslint": "8.48.0"
     },
     "engines": {
         "node": ">=24.0.0",

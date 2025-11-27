@@ -4,7 +4,7 @@
         "incremental": true,
         "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
         "types": [
-            "../../packages/shell/env-vars.d.ts",
+            "../../packages/core-module/env-vars.d.ts",
             "../storybook/parameters.d.ts"
         ]
     },

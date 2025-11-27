@@ -1,21 +1,9 @@
-import { isApiError } from "@packages/core";
+import { QueryClientDefaultOptions } from "@packages/core-module";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { PropsWithChildren } from "react";
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            retry: (failureCount, error) => {
-                if (isApiError(error) && (error.status === 401 || error.status === 403)) {
-                    return false;
-                }
-
-                return failureCount <= 2;
-            },
-            refetchInterval: 5 * 60 * 1000
-        }
-    }
+    defaultOptions: QueryClientDefaultOptions
 });
 
 export function QueryProvider({ children }: PropsWithChildren) {

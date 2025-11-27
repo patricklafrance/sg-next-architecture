@@ -1,10 +1,10 @@
-import { registerManagement } from "@modules/management";
-import { registerMigration } from "@modules/migration";
+import { registerManagement } from "@home-modules/management";
+import { registerMigration } from "@home-modules/migration";
 import type { FireflyRuntime, ModuleRegisterFunction } from "@squide/firefly";
 
 const ModulesDefinition: Record<string, ModuleRegisterFunction<FireflyRuntime>> = {
-    "management": registerManagement,
-    "migration": registerMigration
+    "home/management": registerManagement,
+    "home/migration": registerMigration
 };
 
 export function getActiveModules(activeModules?: string) {

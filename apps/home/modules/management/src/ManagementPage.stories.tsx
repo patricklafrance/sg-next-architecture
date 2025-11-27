@@ -1,16 +1,16 @@
 import { withModuleDecorator } from "@packages/core-module";
 import { initializeFireflyForStorybook } from "@squide/firefly-rsbuild-storybook";
 import type { Meta, StoryObj } from "storybook-react-rsbuild";
-import { HomePage } from "./HomePage.tsx";
-import { registerHost } from "./registerHost.tsx";
+import { ManagementPage } from "./ManagementPage.tsx";
+import { registerManagement } from "./registerManagement.tsx";
 
 const fireflyRuntime = await initializeFireflyForStorybook({
-    localModules: [registerHost]
+    localModules: [registerManagement]
 });
 
 const meta = {
-    title: "Host/Pages/HomePage",
-    component: HomePage,
+    title: "Home/Management/Pages/ManagementPage",
+    component: ManagementPage,
     decorators: [
         withModuleDecorator(fireflyRuntime)
     ],
@@ -21,7 +21,7 @@ const meta = {
             ]
         }
     }
-} satisfies Meta<typeof HomePage>;
+} satisfies Meta<typeof ManagementPage>;
 
 export default meta;
 

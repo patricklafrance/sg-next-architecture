@@ -1,6 +1,6 @@
 import { Div, H2, Text } from "@hopper-ui/components";
 import { getJson } from "@packages/core";
-import { useEnvironmentVariables } from "@squide/env-vars";
+import { useEnvironmentVariables } from "@squide/firefly";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 interface Character {

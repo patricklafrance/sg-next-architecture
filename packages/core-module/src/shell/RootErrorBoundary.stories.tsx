@@ -1,9 +1,13 @@
 import type { Meta, StoryObj } from "storybook-react-rsbuild";
-import { RootErrorBoundary } from "./RootErrorBoundary.js";
+import { withHopperDecorator } from "../storybook/withHopperDecorator.tsx";
+import { RootErrorBoundary } from "./RootErrorBoundary.tsx";
 
 const meta = {
     title: "Shell/RootErrorBoundary",
-    component: RootErrorBoundary
+    component: RootErrorBoundary,
+    decorators: [
+        withHopperDecorator()
+    ]
 } satisfies Meta<typeof RootErrorBoundary>;
 
 export default meta;
