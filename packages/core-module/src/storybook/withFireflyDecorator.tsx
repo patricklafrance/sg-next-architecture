@@ -1,8 +1,9 @@
-import { FireflyProvider, FireflyRuntime } from "@squide/firefly";
+import { FireflyProvider } from "@squide/firefly";
 import { PropsWithChildren } from "react";
 import { Decorator } from "storybook-react-rsbuild";
+import { StorybookRuntime } from "./StorybookRuntime.ts";
 
-export function withFireflyDecorator(runtime: FireflyRuntime): Decorator {
+export function withFireflyDecorator(runtime: StorybookRuntime): Decorator {
     return story => {
         return (
             <FireflyDecorator runtime={runtime}>
@@ -13,7 +14,7 @@ export function withFireflyDecorator(runtime: FireflyRuntime): Decorator {
 }
 
 export interface FireflyDecoratorProps extends PropsWithChildren {
-    runtime: FireflyRuntime;
+    runtime: StorybookRuntime;
 }
 
 export function FireflyDecorator(props: FireflyDecoratorProps) {
@@ -23,10 +24,8 @@ export function FireflyDecorator(props: FireflyDecoratorProps) {
     } = props;
 
     return (
-        <>
-            <FireflyProvider runtime={runtime}>
-                {children}
-            </FireflyProvider>
-        </>
+        <FireflyProvider runtime={runtime}>
+            {children}
+        </FireflyProvider>
     );
 }
