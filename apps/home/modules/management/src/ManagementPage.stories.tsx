@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "storybook-react-rsbuild";
 import { ManagementPage } from "./ManagementPage.tsx";
 import { registerManagement } from "./registerManagement.tsx";
 
-const fireflyRuntime = initializeFireflyForStorybook({
+const fireflyRuntime = await initializeFireflyForStorybook({
     localModules: [registerManagement]
 });
 

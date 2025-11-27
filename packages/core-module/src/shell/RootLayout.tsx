@@ -37,6 +37,12 @@ export function RootLayout() {
     const navigationItems = useNavigationItems();
     const navigationElements = useRenderedNavigationItems(navigationItems, renderItem, renderSection);
 
+    console.log("***********************");
+    console.log("***********************");
+    console.log("***********************", navigationItems);
+    console.log("***********************");
+    console.log("***********************");
+
     return (
         <>
             <nav>{navigationElements}</nav>

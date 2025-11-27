@@ -3,14 +3,9 @@ import type { Meta, StoryObj } from "storybook-react-rsbuild";
 import { HomePage } from "./HomePage.tsx";
 import { registerHost } from "./registerHost.tsx";
 
-const fireflyRuntime = initializeFireflyForStorybook({
+const fireflyRuntime = await initializeFireflyForStorybook({
     localModules: [registerHost]
 });
-
-console.log("************************");
-console.log("************************");
-console.log("************************");
-console.log("************************");
 
 const meta = {
     title: "Host/Pages/HomePage",

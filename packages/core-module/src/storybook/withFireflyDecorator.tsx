@@ -1,4 +1,4 @@
-import { AppRouter, FireflyProvider, FireflyRuntime } from "@squide/firefly";
+import { FireflyProvider, FireflyRuntime } from "@squide/firefly";
 import { PropsWithChildren } from "react";
 import { Decorator } from "storybook-react-rsbuild";
 
@@ -16,7 +16,6 @@ export interface FireflyDecoratorProps extends PropsWithChildren {
     runtime: FireflyRuntime;
 }
 
-// TODO: Is useIsBootstrapping missing?
 export function FireflyDecorator(props: FireflyDecoratorProps) {
     const {
         runtime,
@@ -24,11 +23,10 @@ export function FireflyDecorator(props: FireflyDecoratorProps) {
     } = props;
 
     return (
-        <FireflyProvider runtime={runtime}>
-            <AppRouter>
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {() => children as any}
-            </AppRouter>
-        </FireflyProvider>
+        <>
+            <FireflyProvider runtime={runtime}>
+                {children}
+            </FireflyProvider>
+        </>
     );
 }

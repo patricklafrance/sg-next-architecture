@@ -1,12 +1,16 @@
 import type { Meta, StoryObj } from "storybook-react-rsbuild";
 import { initializeFireflyForStorybook } from "../storybook/initializeFireflyForStorybook.ts";
-import { withFireflyDecorator } from "../storybook/withFireflyDecorator.tsx";
+import { withFireflyAppRouterDecorator } from "../storybook/withFireflyAppRouterDecorator.tsx";
 import { withHopperDecorator } from "../storybook/withHopperDecorator.tsx";
 import { RootLayout } from "./RootLayout.tsx";
 
-const fireflyRuntime = initializeFireflyForStorybook({
+const fireflyRuntime = await initializeFireflyForStorybook({
     localModules: [
         runtime => {
+            console.log("!!!!!!!!!!!!!!!!!!!");
+            console.log("!!!!!!!!!!!!!!!!!!!");
+            console.log("!!!!!!!!!!!!!!!!!!!");
+
             for (let i = 1; i <= 3; i += 1) {
                 runtime.registerNavigationItem({
                     $label: `Item ${i}`,
@@ -21,7 +25,7 @@ const meta = {
     title: "Shell/RootLayout",
     component: RootLayout,
     decorators: [
-        withFireflyDecorator(fireflyRuntime),
+        withFireflyAppRouterDecorator(fireflyRuntime),
         withHopperDecorator()
     ]
 } satisfies Meta<typeof RootLayout>;

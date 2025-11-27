@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "storybook-react-rsbuild";
 import { MigrationPage } from "./MigrationPage.tsx";
 import { registerMigration } from "./registerMigration.tsx";
 
-const fireflyRuntime = initializeFireflyForStorybook({
+const fireflyRuntime = await initializeFireflyForStorybook({
     localModules: [registerMigration]
 });
 
