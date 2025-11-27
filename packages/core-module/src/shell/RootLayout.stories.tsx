@@ -7,10 +7,6 @@ import { RootLayout } from "./RootLayout.tsx";
 const fireflyRuntime = await initializeFireflyForStorybook({
     localModules: [
         runtime => {
-            console.log("!!!!!!!!!!!!!!!!!!!");
-            console.log("!!!!!!!!!!!!!!!!!!!");
-            console.log("!!!!!!!!!!!!!!!!!!!");
-
             for (let i = 1; i <= 3; i += 1) {
                 runtime.registerNavigationItem({
                     $label: `Item ${i}`,
