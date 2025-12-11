@@ -4,8 +4,8 @@
         "incremental": true,
         "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
         "types": [
-            "./env-vars.d.ts",
-            "../../apps/storybook/parameters.d.ts"
+            "./types/env-vars.d.ts",
+            "../../apps/storybook/types/parameters.d.ts"
         ]
     },
     "exclude": ["dist", "node_modules"]

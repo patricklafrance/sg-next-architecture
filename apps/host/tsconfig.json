@@ -4,8 +4,9 @@
         "incremental": true,
         "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
         "types": [
-            "../../packages/core-module/env-vars.d.ts",
-            "../storybook/parameters.d.ts"
+            "../../packages/core-module/types/env-vars.d.ts",
+            "../../packages/core-module/types/feature-flags.d.ts",
+            "../storybook/types/parameters.d.ts"
         ]
     },
     "exclude": ["dist", "node_modules"]

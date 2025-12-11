@@ -4,7 +4,7 @@ async function registerMsw(runtime: FireflyRuntime) {
     if (runtime.isMswEnabled) {
         // Files including an import to the "msw" package are included dynamically to prevent adding
         // MSW stuff to the bundle when it's not used.
-        const requestHandlers = (await import("./apiMocks/getRequestHandlers.js")).getRequestHandlers(runtime.getEnvironmentVariables());
+        const requestHandlers = (await import("./apiMocks/getRequestHandlers.js")).getRequestHandlers(runtime.environmentVariables);
 
         runtime.registerRequestHandlers(requestHandlers);
     }
