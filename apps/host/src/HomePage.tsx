@@ -1,6 +1,6 @@
-import { Div, H2, Text } from "@hopper-ui/components";
+import { Div, H2, Paragraph, Text } from "@hopper-ui/components";
 import { getJson } from "@packages/core";
-import { useEnvironmentVariables } from "@squide/firefly";
+import { useEnvironmentVariables, useFeatureFlag } from "@squide/firefly";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 interface Character {
@@ -10,6 +10,7 @@ interface Character {
 }
 
 export function HomePage() {
+    const canShowCharacters = useFeatureFlag("show-characters", true);
     const environmentVariables = useEnvironmentVariables();
 
     const { data: characters } = useSuspenseQuery({ queryKey: [`${environmentVariables.hostApiBaseUrl}/character/1,2`], queryFn: async () => {
@@ -19,19 +20,23 @@ export function HomePage() {
     return (
         <Div>
             <H2>Home</H2>
-            <Div>
-                {characters.map(x => {
-                    return (
-                        <Div key={x.id}>
-                            <Text>Id: {x.id}</Text>
-                            <Text> - </Text>
-                            <Text>Name: {x.name}</Text>
-                            <Text> - </Text>
-                            <Text>Species: {x.species}</Text>
-                        </Div>
-                    );
-                })}
-            </Div>
+            {canShowCharacters ? (
+                <Div>
+                    {characters.map(x => {
+                        return (
+                            <Div key={x.id}>
+                                <Text>Id: {x.id}</Text>
+                                <Text> - </Text>
+                                <Text>Name: {x.name}</Text>
+                                <Text> - </Text>
+                                <Text>Species: {x.species}</Text>
+                            </Div>
+                        );
+                    })}
+                </Div>
+            ) : (
+                <Paragraph>The <code>show-characters</code> feature flag is off.</Paragraph>
+            )}
         </Div>
     );
 }

@@ -6,5 +6,6 @@ declare module "@squide/firefly" {
         "enable-log-rocket": boolean;
         "enable-honeycomb": boolean;
         "enable-mixpanel": boolean;
+        "show-characters": boolean;
     }
 }
