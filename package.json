@@ -37,9 +37,9 @@
     },
     "devDependencies": {
         "@eslint/js": "9.39.1",
-        "@types/node": "25.0.0",
+        "@types/node": "25.0.1",
         "@typescript-eslint/parser": "8.49.0",
-        "@workleap/eslint-configs": "1.1.6",
+        "@workleap/eslint-configs": "1.1.7",
         "@workleap/typescript-configs": "3.0.7",
         "cross-env": "10.1.0",
         "eslint": "9.39.1",
