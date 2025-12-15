@@ -12,12 +12,12 @@
     "devDependencies": {
         "@eslint/js": "9.39.2",
         "@types/node": "25.0.2",
-        "@typescript-eslint/parser": "8.49.0",
-        "@workleap/eslint-configs": "1.1.7",
+        "@typescript-eslint/parser": "8.50.0",
+        "@workleap/eslint-configs": "1.1.8",
         "@workleap/typescript-configs": "3.0.7",
         "eslint": "9.39.2",
         "typescript": "5.9.3",
-        "typescript-eslint": "8.49.0"
+        "typescript-eslint": "8.50.0"
     },
     "sideEffects": false
 }

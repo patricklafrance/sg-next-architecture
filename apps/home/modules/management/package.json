@@ -1,8 +1,8 @@
 {
-    "name": "@home-modules/management",
+    "name": "@modules/home-management",
     "author": "Workleap",
     "version": "0.0.0",
-    "description": "Management module of the SG Home application",
+    "description": "Management module of the SG Home application.",
     "private": true,
     "license": "Apache-2.0",
     "type": "module",
@@ -32,13 +32,13 @@
         "@eslint/js": "9.39.2",
         "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
-        "@typescript-eslint/parser": "8.49.0",
-        "@workleap/eslint-configs": "1.1.7",
+        "@typescript-eslint/parser": "8.50.0",
+        "@workleap/eslint-configs": "1.1.8",
         "@workleap/typescript-configs": "3.0.7",
         "eslint": "9.39.2",
         "msw": "2.12.4",
         "storybook-react-rsbuild": "3.1.0",
         "typescript": "5.9.3",
-        "typescript-eslint": "8.49.0"
+        "typescript-eslint": "8.50.0"
     }
 }

@@ -5,13 +5,13 @@ export default {
     "lintFormatting": false,
     "semverGroups": [
         {
-            "packages": ["@home-modules/*", "@packages/*"],
+            "packages": ["@modules/*", "@packages/*"],
             "dependencyTypes": ["prod", "peer"],
             "range": "^",
             "label": "Modules and Packages should use ^ for dependencies and peerDependencies."
         },
         {
-            "packages": ["@home-modules/*", "@packages/*"],
+            "packages": ["@modules/*", "@packages/*"],
             "dependencyTypes": ["dev"],
             "range": "",
             "label": "Modules and Packages should pin devDependencies."

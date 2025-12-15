@@ -10,10 +10,16 @@ const storybookConfig: StorybookConfig = {
         getAbsolutePath("@storybook/addon-a11y")
     ],
     stories: [
-        "../../host/src/**/*.stories.tsx",
-        "../../home/modules/management/src/**/*.stories.tsx",
-        "../../home/modules/migration/src/**/*.stories.tsx",
-        "../../../packages/**/src/**/*.stories.tsx"
+        // Packages
+        "../../../packages/components/src/**/*.stories.tsx",
+        "../../../packages/core/src/**/*.stories.tsx",
+        "../../../packages/core-module/src/**/*.stories.tsx",
+        // Home
+        "../../home/core/src/**/*.stories.tsx",
+        "../../home/modules/*/src/**/*.stories.tsx",
+        // Protect
+        "../../protect/core/src/**/*.stories.tsx",
+        "../../protect/modules/*/src/**/*.stories.tsx"
     ],
     staticDirs: ["public"],
     rsbuildFinal: config => {

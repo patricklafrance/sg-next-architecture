@@ -1,2 +1,2 @@
-export { registerMigration } from "./registerMigration.js";
+export { registerHomeMigration } from "./registerHomeMigration.js";
 

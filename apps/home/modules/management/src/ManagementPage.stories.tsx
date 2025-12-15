@@ -2,10 +2,10 @@ import { withModuleDecorator } from "@packages/core-module";
 import { initializeFireflyForStorybook } from "@squide/firefly-rsbuild-storybook";
 import type { Meta, StoryObj } from "storybook-react-rsbuild";
 import { ManagementPage } from "./ManagementPage.tsx";
-import { registerManagement } from "./registerManagement.tsx";
+import { registerHomeManagement } from "./registerHomeManagement.js";
 
 const fireflyRuntime = await initializeFireflyForStorybook({
-    localModules: [registerManagement]
+    localModules: [registerHomeManagement]
 });
 
 const meta = {

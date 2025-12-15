@@ -28,7 +28,7 @@ function registerRoutes(runtime: FireflyRuntime) {
     });
 }
 
-export const registerMigration: ModuleRegisterFunction<FireflyRuntime> = async runtime => {
+export const registerHomeMigration: ModuleRegisterFunction<FireflyRuntime> = async runtime => {
     await registerMsw(runtime);
     registerRoutes(runtime);
 };

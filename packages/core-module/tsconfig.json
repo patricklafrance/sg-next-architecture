@@ -5,7 +5,7 @@
         "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
         "types": [
             "./types/env-vars.d.ts",
-            "../../apps/storybook/types/parameters.d.ts"
+            "../storybook/types/parameters.d.ts"
         ]
     },
     "exclude": ["dist", "node_modules"]

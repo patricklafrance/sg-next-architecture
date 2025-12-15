@@ -1,6 +1,6 @@
 {
     "name": "@apps/host",
-    "description": "ShareGate Home application",
+    "description": "ShareGate unified application.",
     "private": true,
     "author": "Workleap",
     "version": "0.0.0",
@@ -18,11 +18,11 @@
         "typecheck": "tsc"
     },
     "dependencies": {
-        "@home-modules/management": "workspace:*",
-        "@home-modules/migration": "workspace:*",
         "@hopper-ui/components": "1.16.3",
         "@hopper-ui/icons": "2.10.4",
         "@hopper-ui/styled-system": "2.5.14",
+        "@modules/home-management": "workspace:*",
+        "@modules/home-migration": "workspace:*",
         "@opentelemetry/api": "1.9.0",
         "@packages/core": "workspace:*",
         "@packages/core-module": "workspace:*",
@@ -47,9 +47,9 @@
         "@rspack/core": "1.6.7",
         "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
-        "@typescript-eslint/parser": "8.49.0",
+        "@typescript-eslint/parser": "8.50.0",
         "@workleap/browserslist-config": "2.1.4",
-        "@workleap/eslint-configs": "1.1.7",
+        "@workleap/eslint-configs": "1.1.8",
         "@workleap/netlify-skew-protection": "1.0.5",
         "@workleap/rsbuild-configs": "3.1.5",
         "@workleap/stylelint-configs": "2.1.4",
@@ -58,11 +58,11 @@
         "http-server": "14.1.1",
         "msw": "2.12.4",
         "prettier": "3.7.4",
-        "storybook": "10.1.8",
+        "storybook": "10.1.9",
         "storybook-react-rsbuild": "3.1.0",
         "stylelint": "16.26.1",
         "typescript": "5.9.3",
-        "typescript-eslint": "8.49.0"
+        "typescript-eslint": "8.50.0"
     },
     "msw": {
         "workerDirectory": [

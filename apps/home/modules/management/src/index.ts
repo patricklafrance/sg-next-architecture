@@ -1,2 +1,2 @@
-export { registerManagement } from "./registerManagement.js";
+export { registerHomeManagement } from "./registerHomeManagement.js";
 

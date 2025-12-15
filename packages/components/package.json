@@ -1,0 +1,36 @@
+{
+    "name": "@packages/components",
+    "author": "Workleap",
+    "version": "0.0.0",
+    "description": "Shared components package.",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "exports": "./src/index.ts",
+    "scripts": {
+        "eslint": "eslint . --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
+        "typecheck": "tsc"
+    },
+    "peerDependencies": {
+        "@hopper-ui/components": "^1.16.3",
+        "@hopper-ui/icons": "^2.10.4",
+        "@hopper-ui/styled-system": "^2.5.14",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3"
+    },
+    "dependencies": {
+        "@packages/core-module": "workspace:*"
+    },
+    "devDependencies": {
+        "@eslint/js": "9.39.2",
+        "@types/react": "19.2.7",
+        "@types/react-dom": "19.2.3",
+        "@typescript-eslint/parser": "8.50.0",
+        "@workleap/eslint-configs": "1.1.8",
+        "@workleap/typescript-configs": "3.0.7",
+        "eslint": "9.39.2",
+        "storybook-react-rsbuild": "3.1.0",
+        "typescript": "5.9.3",
+        "typescript-eslint": "8.50.0"
+    }
+}
