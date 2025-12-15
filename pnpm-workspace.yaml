@@ -1,7 +1,6 @@
 packages:
   - apps/**
   - packages/**
-  - smoke-tests
 
 onlyBuiltDependencies:
   - '@parcel/watcher'

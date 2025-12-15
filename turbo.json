@@ -1,12 +1,6 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "globalEnv": ["USE_MSW", "MODULES"],
-    // Defined for smoke tests.
-    // "globalPassThroughEnv": [
-    //     "SAMPLE_JS_URL",
-    //     "SAMPLE_REACT_URL",
-    //     "SAMPLE_SQUIDE_HOST_URL"
-    // ],
     "ui": "tui",
     "tasks": {
         "dev": {
@@ -49,31 +43,6 @@
         "//#syncpack": {},
         "test": {
             "outputs": ["node_modules/.cache/vitest/**"]
-        },
-        "install-playwright": {
-            "outputs": [".playwright"]
         }
-        // "smoke-test-local": {
-        //     "dependsOn": [
-        //         "@samples/js#build-preview",
-        //         "@samples/react#build-preview",
-        //         "@samples/squide-host#build-preview",
-        //         "install-playwright"
-        //     ]
-        // },
-        // "smoke-test-local-ui": {
-        //     "dependsOn": [
-        //         "@samples/js#build-preview",
-        //         "@samples/react#build-preview",
-        //         "@samples/squide-host#build-preview",
-        //         "install-playwright"
-        //     ]
-        // },
-        // "smoke-test-prod": {
-        //     "dependsOn": ["install-playwright"]
-        // },
-        // "smoke-test-preview": {
-        //     "dependsOn": ["install-playwright"]
-        // }
     }
 }

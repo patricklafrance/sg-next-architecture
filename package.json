@@ -36,13 +36,13 @@
         "update-outdated-deps:update-peers": "syncpack fix-mismatches"
     },
     "devDependencies": {
-        "@eslint/js": "9.39.1",
-        "@types/node": "25.0.1",
+        "@eslint/js": "9.39.2",
+        "@types/node": "25.0.2",
         "@typescript-eslint/parser": "8.49.0",
         "@workleap/eslint-configs": "1.1.7",
         "@workleap/typescript-configs": "3.0.7",
         "cross-env": "10.1.0",
-        "eslint": "9.39.1",
+        "eslint": "9.39.2",
         "netlify-cli": "23.12.3",
         "syncpack": "13.0.4",
         "turbo": "2.6.3",
