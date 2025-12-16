@@ -62,7 +62,7 @@ try {
     const parsedResult = JSON.parse(rawResult);
 
     affectedPackages = parsedResult.packages?.items.map((x: TurborepoAffectedItem) => x.name) || [];
-} catch (error) {
+} catch (error: unknown) {
     if (error instanceof Error) {
         console.error("[chromatic] An error occured while retrieving the affected packages from Turborepo:", error.message);
     }
@@ -85,17 +85,24 @@ if (affectedPackages.length > 0) {
 
         console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook:`, command);
 
-        execSync(
-            command,
-            {
-                cwd: process.cwd(),
-                encoding: "utf8",
-                // Surfacing the chromatic errors in the terminal.
-                stdio: ["ignore", "pipe", "inherit"]
+        try {
+            execSync(
+                command,
+                {
+                    cwd: process.cwd(),
+                    encoding: "utf8",
+                    // Surfacing the chromatic errors in the terminal.
+                    stdio: ["ignore", "pipe", "inherit"]
+                }
+            );
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error("[chromatic] An error occured while starting chromatic:", error.message);
             }
-        );
 
-        // console.debug("[chromatic] The chromatic processes has been started, the results will be available in the PR, exiting.");
+            process.exit(1);
+        }
+
         process.exit(0);
     } else {
         console.info("[chromatic] Found no affected Storybook, exiting.");
