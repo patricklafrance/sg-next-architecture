@@ -52,7 +52,7 @@ jobs:
             ${{ runner.os }}-turborepo-
           path: .turbo
 
-      - name: Get affected storybook
+      - id: affected-storybooks
         working-directory: sg-next-architecture
         run: pnpm tsx tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
 
