@@ -1,6 +1,6 @@
 # sg-next-architecture
 
-TBD2
+TBD
 
 ## Contributing
 
