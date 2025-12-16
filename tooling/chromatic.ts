@@ -82,7 +82,7 @@ if (affectedPackages.length > 0) {
     if (affectedStorybooks.length > 0) {
         console.info(`[chromatic] Found ${affectedStorybooks.length} affected Storybook:`, affectedStorybooks);
 
-        const filters = affectedStorybooks.map(x => ` --filter=${x}`);
+        const filters = affectedStorybooks.map(x => `--filter=${x}`).join(" ");
         const command = `pnpm exec turbo chromatic${filters}`;
 
         console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook:`, command);
@@ -92,9 +92,7 @@ if (affectedPackages.length > 0) {
                 command,
                 {
                     cwd: process.cwd(),
-                    encoding: "utf8",
-                    // Surfacing the chromatic errors in the terminal.
-                    stdio: ["ignore", "pipe", "inherit"]
+                    stdio: "inherit"
                 }
             );
         } catch (error: unknown) {

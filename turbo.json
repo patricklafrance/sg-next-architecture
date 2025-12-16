@@ -26,7 +26,6 @@
             "persistent": true
         },
         "chromatic": {
-            "dependsOn": ["^build-storybook"],
             "cache": false,
             "passThroughEnv": [
                 "HOME_CHROMATIC_PROJECT_TOKEN",
