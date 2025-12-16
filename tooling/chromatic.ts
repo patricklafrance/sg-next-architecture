@@ -42,7 +42,8 @@ try {
     // - For the command to return the expected result, the GitHub "checkout" step must have the following options:
     //      fetch-depth: 0
     //      ref: ${{ github.event.pull_request.head.sha }}
-    const command = `pnpm exec turbo ls --filter=[HEAD^1] --output=json`;
+    // const command = `pnpm exec turbo ls --filter=[HEAD^1] --output=json`;
+    const command = `pnpm exec turbo ls --filter=[origin/main] --output=json`;
 
     const rawResult = execSync(
         command,
@@ -78,7 +79,7 @@ if (affectedPackages.length > 0) {
         console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook...`);
 
         const filters = affectedStorybooks.join(" --filter=");
-        const command = `pnpm exec chromatic ${filters}`;
+        const command = `pnpm exec turbo chromatic ${filters}`;
 
         execSync(
             command,
