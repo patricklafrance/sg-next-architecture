@@ -37,19 +37,8 @@ interface TurborepoAffectedItem {
 let affectedPackages: string[];
 
 try {
-    // - Using "pnpm exec" to ensure turbo is available via PATH.
-    // - Using "--filter=[HEAD^1]" instead of "--filter=[origin/main]" to only get the
-    //   affected packages since the last commit rather than every packages that diverge from main.
-    //
-    //   Example:
-    //      - If a commit push changes to package "package-1" and "package-2", the affected packages will be "package-1" and "package-2".
-    //      - If a subsequent commit push changes to "package-2", the affected packages will only be "package-2".
-    //
-    // - For the command to return the expected result, the GitHub "checkout" step must have the following options:
-    //      fetch-depth: 0
-    //      ref: ${{ github.event.pull_request.head.sha }}
-    // const command = `pnpm exec turbo ls --filter=[HEAD^1] --output=json`;
-    const command = `pnpm exec turbo ls --filter=[origin/main] --output=json`;
+    // Find packages diverging from the main branch.
+    const command = `pnpm turbo ls --filter=[origin/main] --output=json`;
 
     const rawResult = execSync(
         command,
@@ -92,6 +81,7 @@ if (affectedPackages.length > 0) {
                 command,
                 {
                     cwd: process.cwd(),
+                    // Log chromatic CLI outputs.
                     stdio: "inherit"
                 }
             );

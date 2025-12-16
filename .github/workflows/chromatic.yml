@@ -25,6 +25,8 @@ jobs:
         uses: actions/checkout@v4
         with:
             fetch-depth: 0
+            # Required since this job is not using the official chromatic GitHub action.
+            ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
