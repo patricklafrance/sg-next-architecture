@@ -52,8 +52,8 @@ jobs:
             ${{ runner.os }}-turborepo-
           path: .turbo
 
-      - name: Prepare chromatic
-        run: pnpm tsx ../tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
+      - name: Get affected storybook
+        run: pnpm tsx tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
 
     #   - name: chromatic
     #     run: pnpm chromatic
