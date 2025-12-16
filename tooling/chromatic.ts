@@ -75,9 +75,23 @@ if (affectedPackages.length > 0) {
     if (affectedStorybooks.length > 0) {
         console.info(`[chromatic] Found ${affectedStorybooks.length} affected Storybook:`, affectedStorybooks);
 
-        const filters = affectedStorybooks.join(" --filter=");
+        console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook...`);
 
-        console.log(`pnpm exec turbo chromatic ${filters}`);
+        const filters = affectedStorybooks.join(" --filter=");
+        const command = `pnpm exec chromatic ${filters}`;
+
+        execSync(
+            command,
+            {
+                cwd: process.cwd(),
+                encoding: "utf8",
+                // Surfacing the chromatic errors in the terminal.
+                stdio: ["ignore", "pipe", "inherit"]
+            }
+        );
+
+        // console.debug("[chromatic] The chromatic processes has been started, the results will be available in the PR, exiting.");
+        process.exit(0);
     } else {
         console.info("[chromatic] Found no affected Storybook, exiting.");
         process.exit(0);
@@ -86,5 +100,3 @@ if (affectedPackages.length > 0) {
     console.info("[chromatic] Found no affected packages, exiting.");
     process.exit(0);
 }
-
-process.exit(0);
