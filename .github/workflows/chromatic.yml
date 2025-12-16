@@ -60,12 +60,12 @@ jobs:
             echo "--- tooling folder ---"
             ls -la tooling || true
             echo "--- find script ---"
-            find . -maxdepth 4 -name "getAffectedStorybook.ts" -print
+            find . -maxdepth 4 -name "getAffectedStorybooks.ts" -print
 
       - name: Get affected Storybooks
         id: affected
         working-directory: ${{ github.workspace }}
-        run: pnpm tsx tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
+        run: pnpm tsx tooling/getAffectedStorybooks.ts >> "$GITHUB_OUTPUT"
 
     #   - name: chromatic
     #     run: pnpm chromatic
