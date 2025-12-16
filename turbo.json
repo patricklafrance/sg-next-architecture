@@ -13,7 +13,7 @@
             "outputs": ["dist/**"]
         },
         "build-storybook": {
-            "outputs": ["storybook-static/**"],
+            "dependsOn": ["^build"],
             "cache": false
         },
         "serve-build": {
