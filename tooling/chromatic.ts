@@ -80,8 +80,8 @@ if (affectedPackages.length > 0) {
     if (affectedStorybooks.length > 0) {
         console.info(`[chromatic] Found ${affectedStorybooks.length} affected Storybook:`, affectedStorybooks);
 
-        const filters = affectedStorybooks.join(" --filter=");
-        const command = `pnpm exec turbo chromatic ${filters}`;
+        const filters = affectedStorybooks.map(x => ` --filter=${x}`);
+        const command = `pnpm exec turbo chromatic${filters}`;
 
         console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook:`, command);
 
