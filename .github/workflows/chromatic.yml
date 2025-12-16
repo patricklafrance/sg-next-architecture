@@ -56,6 +56,8 @@ jobs:
       - name: Chromatic
         run: pnpm chromatic
         env:
+            GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+            GITHUB_REF_NAME: ${{ github.head_ref }}
             HOME_CHROMATIC_PROJECT_TOKEN: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             PACKAGES_CHROMATIC_PROJECT_TOKEN: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
 
