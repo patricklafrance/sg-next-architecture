@@ -5,12 +5,19 @@ interface TurborepoAffectedItem {
     path: string;
 }
 
+function findAffectedStorybooks() {
+
+}
+
 let affectedPackages: string[];
 
 try {
+    // const command = `pnpm exec turbo ls --filter=[origin/main] --output=json`;
     // Using "pnpm exec" to ensure turbo is available via PATH.
-    // const command = `pnpm exec turbo ls --affected --output=json`;
-    const command = `pnpm exec turbo ls --filter=[origin/main] --output=json`;
+    // Using "--filter=[HEAD^1]" instead of "--filter=[origin/main]" to only get the
+    // affected packages since the last commit rather than every packages that diverge from main.
+    // For example..
+    const command = `pnpm exec turbo ls --filter=[HEAD^1] --output=json`;
 
     const raw = execSync(
         command,
