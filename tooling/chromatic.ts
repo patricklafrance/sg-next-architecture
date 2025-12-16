@@ -12,6 +12,8 @@ TODO:
 
 - Est-ce possible de configurer un repo pour toujours ouvrir une PR en draft?
 
+- If the branch is main, run chromatic (and it will autoaccept)
+
 */
 
 const StorybookMapping = {
