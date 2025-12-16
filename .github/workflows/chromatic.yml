@@ -1,4 +1,4 @@
-name: CI
+name: Chromatic
 
 # PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
 
