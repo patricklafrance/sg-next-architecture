@@ -13,14 +13,26 @@
             "outputs": ["dist/**"]
         },
         "build-storybook": {
-            "dependsOn": ["^build"],
-            "outputs": ["dist/**", "storybook-static/**"],
+            "outputs": ["storybook-static/**"],
             "cache": false
         },
         "serve-build": {
             "dependsOn": ["build"],
             "cache": false,
             "persistent": true
+        },
+        "serve-storybook": {
+            "dependsOn": ["build-storybook"],
+            "cache": false,
+            "persistent": true
+        },
+        "chromatic": {
+            "dependsOn": ["^build-storybook"],
+            "cache": false,
+            "passThroughEnv": [
+                "HOME_CHROMATIC_PROJECT_TOKEN",
+                "PACKAGES_CHROMATIC_PROJECT_TOKEN"
+            ]
         },
         "lint": {
             "dependsOn": ["eslint", "//#eslint", "stylelint", "typecheck", "//#typecheck", "//#syncpack"]
