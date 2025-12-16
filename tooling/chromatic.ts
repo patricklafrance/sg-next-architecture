@@ -9,7 +9,8 @@ let affectedPackages: string[];
 
 try {
     // Using "pnpm exec" to ensure turbo is available via PATH.
-    const command = `pnpm exec turbo ls --affected --output=json`;
+    // const command = `pnpm exec turbo ls --affected --output=json`;
+    const command = `pnpm exec turbo ls --filter=[origin/main] --output=json`;
 
     const raw = execSync(
         command,
