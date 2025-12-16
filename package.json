@@ -20,7 +20,7 @@
         "build-storybook": "turbo run build-storybook --filter=@apps/storybook",
         "serve-host": "turbo run serve-build --filter=@apps/host",
         "serve-storybook": "turbo run serve-storybook --filter=@apps/storybook",
-        "chromatic": "turbo run chromatic --filter=[origin/main]",
+        "chromatic": "pnpm tsx ./tooling/chromatic.ts",
         "lint": "turbo run lint --continue",
         "eslint": "eslint . --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
         "typecheck": "tsc",
@@ -44,6 +44,7 @@
         "eslint": "9.39.2",
         "netlify-cli": "23.12.3",
         "syncpack": "13.0.4",
+        "tsx": "4.21.0",
         "turbo": "2.6.3",
         "typescript": "5.9.3",
         "typescript-eslint": "8.50.0"
