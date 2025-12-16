@@ -53,6 +53,7 @@ jobs:
           path: .turbo
 
       - name: Get affected storybook
+        working-directory: sg-next-architecture
         run: pnpm tsx tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
 
     #   - name: chromatic
