@@ -16,6 +16,8 @@ TODO:
 
 */
 
+console.log("************", process.env.GITHUB_REF_NAME);
+
 const StorybookMapping = {
     "@apps/packages-storybook": [
         "@packages/components"
