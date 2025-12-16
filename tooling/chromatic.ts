@@ -12,13 +12,7 @@ TODO:
 
 - Est-ce possible de configurer un repo pour toujours ouvrir une PR en draft?
 
-- If the branch is main, run chromatic (and it will autoaccept)
-
-- SKip renovate
-
 */
-
-console.log("************", process.env.GITHUB_REF_NAME);
 
 const DefaultBranch = "main";
 
