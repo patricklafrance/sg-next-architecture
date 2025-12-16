@@ -1,5 +1,34 @@
 import { execSync } from "node:child_process";
 
+/*
+
+TODO:
+
+- Add a component to packages/components and use it in Home
+
+- Add something for home to be affected when packages change
+
+- L'action ne doit pas s'exécuter sur un draft
+
+- Est-ce possible de configurer un repo pour toujours ouvrir une PR en draft?
+
+- If the branch is main, run chromatic (and it will autoaccept)
+
+*/
+
+const StorybookMapping = {
+    "@apps/packages-storybook": [
+        "@packages/components"
+    ],
+    "@apps/home-storybook": [
+        "@packages/home-core",
+        "@modules/home-management",
+        "@modules/home-migration"
+    ],
+    "@apps/protect-storybook": [
+    ]
+} as const;
+
 interface TurborepoAffectedItem {
     name: string;
     path: string;
@@ -8,11 +37,21 @@ interface TurborepoAffectedItem {
 let affectedPackages: string[];
 
 try {
-    // Using "pnpm exec" to ensure turbo is available via PATH.
-    // const command = `pnpm exec turbo ls --affected --output=json`;
+    // - Using "pnpm exec" to ensure turbo is available via PATH.
+    // - Using "--filter=[HEAD^1]" instead of "--filter=[origin/main]" to only get the
+    //   affected packages since the last commit rather than every packages that diverge from main.
+    //
+    //   Example:
+    //      - If a commit push changes to package "package-1" and "package-2", the affected packages will be "package-1" and "package-2".
+    //      - If a subsequent commit push changes to "package-2", the affected packages will only be "package-2".
+    //
+    // - For the command to return the expected result, the GitHub "checkout" step must have the following options:
+    //      fetch-depth: 0
+    //      ref: ${{ github.event.pull_request.head.sha }}
+    // const command = `pnpm exec turbo ls --filter=[HEAD^1] --output=json`;
     const command = `pnpm exec turbo ls --filter=[origin/main] --output=json`;
 
-    const raw = execSync(
+    const rawResult = execSync(
         command,
         {
             cwd: process.cwd(),
@@ -22,10 +61,10 @@ try {
         }
     );
 
-    const parsedResult = JSON.parse(raw);
+    const parsedResult = JSON.parse(rawResult);
 
     affectedPackages = parsedResult.packages?.items.map((x: TurborepoAffectedItem) => x.name) || [];
-} catch (error) {
+} catch (error: unknown) {
     if (error instanceof Error) {
         console.error("[chromatic] An error occured while retrieving the affected packages from Turborepo:", error.message);
     }
@@ -33,12 +72,43 @@ try {
     process.exit(1);
 }
 
-if (affectedPackages) {
+if (affectedPackages.length > 0) {
     console.info(`[chromatic] Found ${affectedPackages.length} affected packages:`, affectedPackages);
 
-    process.exit(0);
+    const affectedStorybooks = (Object.keys(StorybookMapping) as (keyof typeof StorybookMapping)[]).filter(x =>
+        StorybookMapping[x].some((y: string) => affectedPackages.includes(y))
+    );
+
+    if (affectedStorybooks.length > 0) {
+        console.info(`[chromatic] Found ${affectedStorybooks.length} affected Storybook:`, affectedStorybooks);
+
+        const filters = affectedStorybooks.map(x => `--filter=${x}`).join(" ");
+        const command = `pnpm exec turbo chromatic ${filters}`;
+
+        console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook:`, command);
+
+        try {
+            execSync(
+                command,
+                {
+                    cwd: process.cwd(),
+                    stdio: "inherit"
+                }
+            );
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error("[chromatic] An error occured while starting chromatic:", error.message);
+            }
+
+            process.exit(1);
+        }
+
+        process.exit(0);
+    } else {
+        console.info("[chromatic] Found no affected Storybook, exiting.");
+        process.exit(0);
+    }
 } else {
-    console.info("[chromatic] Found no affected packages, exiting");
+    console.info("[chromatic] Found no affected packages, exiting.");
     process.exit(0);
 }
-
