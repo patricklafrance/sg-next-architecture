@@ -53,7 +53,7 @@ jobs:
           path: .turbo
 
       - name: Prepare chromatic
-        run: pnpm tsx tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
+        run: pnpm tsx ../tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
 
     #   - name: chromatic
     #     run: pnpm chromatic
