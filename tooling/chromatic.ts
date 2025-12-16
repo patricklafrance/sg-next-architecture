@@ -10,11 +10,6 @@ TODO:
 
 */
 
-interface TurborepoAffectedItem {
-    name: string;
-    path: string;
-}
-
 const StorybookMapping = {
     "@apps/packages-storybook": [
         "@packages/components"
@@ -27,6 +22,11 @@ const StorybookMapping = {
     "@apps/protect-storybook": [
     ]
 } as const;
+
+interface TurborepoAffectedItem {
+    name: string;
+    path: string;
+}
 
 let affectedPackages: string[];
 
@@ -79,11 +79,11 @@ if (affectedPackages.length > 0) {
 
         console.log(`pnpm exec turbo chromatic ${filters}`);
     } else {
-        console.info("[chromatic] Found no affected Storybook, exiting");
+        console.info("[chromatic] Found no affected Storybook, exiting.");
         process.exit(0);
     }
 } else {
-    console.info("[chromatic] Found no affected packages, exiting");
+    console.info("[chromatic] Found no affected packages, exiting.");
     process.exit(0);
 }
 
