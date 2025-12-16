@@ -7,7 +7,6 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-    # types: ["ready_for_review"]
 
 env:
   CI: true
@@ -25,8 +24,8 @@ jobs:
         uses: actions/checkout@v4
         with:
             fetch-depth: 0
-            # Required since this job is not using the official chromatic GitHub action.
-            ref: ${{ github.event.pull_request.head.sha }}
+            # # Required since this job is not using the official chromatic GitHub action.
+            # ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -53,13 +52,16 @@ jobs:
             ${{ runner.os }}-turborepo-
           path: .turbo
 
-      - name: Chromatic
-        run: pnpm chromatic
-        env:
-            GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
-            GITHUB_REF_NAME: ${{ github.head_ref }}
-            HOME_CHROMATIC_PROJECT_TOKEN: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
-            PACKAGES_CHROMATIC_PROJECT_TOKEN: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
+      - name: Prepare chromatic
+        run: pnpm tsx tooling/getAffectedStorybook.ts >> "$GITHUB_OUTPUT"
+
+    #   - name: chromatic
+    #     run: pnpm chromatic
+    #     env:
+    #         GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+    #         GITHUB_REF_NAME: ${{ github.head_ref }}
+    #         HOME_CHROMATIC_PROJECT_TOKEN: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
+    #         PACKAGES_CHROMATIC_PROJECT_TOKEN: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
 
       - name: Save Turborepo cache
         id: cache-turborepo-save

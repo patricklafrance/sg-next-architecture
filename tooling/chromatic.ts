@@ -120,6 +120,17 @@ if (affectedPackages.length > 0) {
         StorybookMapping[x].some((y: string) => affectedPackages.includes(y))
     );
 
+    // const affectedStorybooks = (Object.keys(StorybookMapping) as (keyof typeof StorybookMapping)[]).reduce((acc, x) => {
+    //     // TODO: is a storybook project
+    //     // TODO: is included
+
+    //     if () {
+
+    //     }
+
+    //     return acc;
+    // }, []);
+
     if (affectedStorybooks.length > 0) {
         console.info(`[chromatic] Found ${affectedStorybooks.length} affected Storybook:`, affectedStorybooks);
 
