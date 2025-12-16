@@ -52,20 +52,10 @@ jobs:
             ${{ runner.os }}-turborepo-
           path: .turbo
 
-      - name: Debug paths
-        run: |
-            echo "github.workspace=${{ github.workspace }}"
-            pwd
-            ls -la
-            echo "--- tooling folder ---"
-            ls -la tooling || true
-            echo "--- find script ---"
-            find . -maxdepth 4 -name "getAffectedStorybooks.ts" -print
-
       - name: Get affected Storybooks
         id: affected
         working-directory: ${{ github.workspace }}
-        run: pnpm tsx tooling/getAffectedStorybooks.ts >> "$GITHUB_OUTPUT"
+        run: pnpm tsx tooling/getAffectedStorybooks.ts
 
     #   - name: chromatic
     #     run: pnpm chromatic
