@@ -251,15 +251,6 @@ importers:
       '@hopper-ui/styled-system':
         specifier: 2.5.14
         version: 2.5.14(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@modules/home-management':
-        specifier: workspace:*
-        version: link:../modules/management
-      '@modules/home-migration':
-        specifier: workspace:*
-        version: link:../modules/migration
-      '@packages/home-core':
-        specifier: workspace:*
-        version: link:../core
       '@storybook/addon-a11y':
         specifier: 10.1.9
         version: 10.1.9(storybook@10.1.9(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))
