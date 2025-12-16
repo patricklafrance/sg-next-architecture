@@ -8,6 +8,10 @@ TODO:
 
 - Add something for home to be affected when packages change
 
+- L'action ne doit pas s'exécuter sur un draft
+
+- Est-ce possible de configurer un repo pour toujours ouvrir une PR en draft?
+
 */
 
 const StorybookMapping = {
@@ -76,10 +80,10 @@ if (affectedPackages.length > 0) {
     if (affectedStorybooks.length > 0) {
         console.info(`[chromatic] Found ${affectedStorybooks.length} affected Storybook:`, affectedStorybooks);
 
-        console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook...`);
-
         const filters = affectedStorybooks.join(" --filter=");
         const command = `pnpm exec turbo chromatic ${filters}`;
+
+        console.debug(`[chromatic] Running chromatic for ${affectedStorybooks.length} Storybook:`, command);
 
         execSync(
             command,
