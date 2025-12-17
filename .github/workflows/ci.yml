@@ -52,20 +52,20 @@ jobs:
           path: .turbo
 
       - name: ESLint
-        # Only lint the packages that are diverging from the pull request original baseline.
+        # Only execute for the packages that are diverging from the pull request original baseline.
         # run: pnpm lint -- --filter=...[${{ github.event.pull_request.base.sha }}]
         run: pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}] --continue
 
       - name: Stylelint
-        # Only lint the packages that are diverging from the pull request original baseline.
+        # Only execute for the packages that are diverging from the pull request original baseline.
         run: pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}] --continue
 
       - name: Syncpack
-        # Only lint the packages that are diverging from the pull request original baseline.
+        # Only execute for the packages that are diverging from the pull request original baseline.
         run: pnpm turbo run syncpack --filter=...[${{ github.event.pull_request.base.sha }}] --continue
 
       - name: Typecheck
-        # Only lint the packages that are diverging from the pull request original baseline.
+        # Only execute for the packages that are diverging from the pull request original baseline.
         run: pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}] --continue
 
       - name: Build host
