@@ -35,6 +35,8 @@ function createAffectedStorybooksRecordFromBooleanValue(value: boolean) {
 // TODO: is it still required for GitHub? It was for ADO but I have a vague memory that it might be specific to ADO.
 if (process.env.GITHUB_REF_NAME === DefaultBranch) {
     affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(true);
+
+    console.info("[getAffectedStorybooks] This is the main branche, run chromatic with \"auto accept changes\" for all Storybook applications.");
 } else {
     try {
         // Find packages diverging from the main branch.
@@ -86,6 +88,8 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
             console.info(`[getAffectedStorybooks] Found ${packageNames.length} affected Storybook applications:`, packageNames);
         }
     } else {
+        console.info("[getAffectedStorybooks] Found no affected package.");
+
         affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(false);
     }
 }
