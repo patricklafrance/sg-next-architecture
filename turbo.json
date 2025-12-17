@@ -28,7 +28,6 @@
         "lint": {
             "dependsOn": ["eslint", "//#eslint", "stylelint", "typecheck", "//#typecheck", "//#syncpack"]
         },
-        "//#lint": {},
         "//#eslint": {
             "outputs": ["node_modules/.cache/eslint"]
         },
