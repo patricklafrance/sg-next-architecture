@@ -47,6 +47,9 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .turbo
+          # Using SHA will usually generate cache hit on subsequent commits in a PR
+          # but will not provide cache hits between PRs, meaning the first run of a PR
+          # will usually only be cache misses.
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
