@@ -52,8 +52,7 @@ jobs:
           path: .turbo
 
       - name: Lint
-        # Only lint the packages that are diverging from the main branch.
-        # run: pnpm lint --filter=[origin/main]
+        # Only lint the packages that are diverging from the pull request original baseline.
         run: pnpm lint --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Build host

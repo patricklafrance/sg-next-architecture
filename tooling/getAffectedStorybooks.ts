@@ -45,7 +45,7 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
         const baseSha = process.env.PR_BASE_SHA;
 
         // If a pull request base SHA is available, use it as the comparison baseline,
-        // otherwise, fallback to the defaukt branch.
+        // otherwise, fallback to the default branch.
         const filter = baseSha
             ? `--filter=...[${baseSha}]`
             : `--filter=[origin/${DefaultBranch}]`;
