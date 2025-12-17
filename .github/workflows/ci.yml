@@ -43,9 +43,9 @@ jobs:
         id: cache-turborepo-restore
         uses: actions/cache/restore@v4
         with:
-          key: ${{ runner.os }}-turborepo-${{ github.sha }}
+          key: ${{ runner.os }}-turborepo-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-turborepo-
+              ${{ runner.os }}-turborepo-
           path: .turbo
 
       - name: Lint
