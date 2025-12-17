@@ -54,7 +54,7 @@ jobs:
       - name: Lint
         # Only lint the packages that are diverging from the main branch.
         # run: pnpm lint --filter=[origin/main]
-        run: --filter=...[${{ github.event.pull_request.base.sha }}]
+        run: pnpm lint --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Build host
         run: pnpm build-host
