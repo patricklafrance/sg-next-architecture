@@ -10,6 +10,7 @@
         },
         "build": {
             "dependsOn": ["^build"],
+            "inputs": ["$TURBO_DEFAULT$", "!README.md", "!src/**/*.css"],
             "outputs": ["dist/**"]
         },
         "build-storybook": {
@@ -29,21 +30,28 @@
             "dependsOn": ["eslint", "//#eslint", "stylelint", "typecheck", "//#typecheck", "//#syncpack"]
         },
         "//#eslint": {
+            "inputs": ["$TURBO_DEFAULT$", "!apps", "!packages", "!docs", "!README.md", "!CONTRIBUTING.md", "!src/**/*.css"],
             "outputs": ["node_modules/.cache/eslint"]
         },
         "eslint": {
+            "inputs": ["$TURBO_DEFAULT$", "!README.md", "!src/**/*.css"],
             "outputs": ["node_modules/.cache/eslint"]
         },
         "stylelint": {
+            "inputs": ["src/**/*.css", ".stylelintignore", ".stylelintrc.json"],
             "outputs": ["node_modules/.cache/stylelint"]
         },
         "//#typecheck": {
+            "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "tsconfig.json", "!apps", "!packages", "!docs"],
             "outputs": ["node_modules/.cache/tsbuildinfo.json"]
         },
         "typecheck": {
+            "inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "tsconfig.json", "tsconfig.build.json"],
             "outputs": ["node_modules/.cache/tsbuildinfo.json"]
         },
-        "//#syncpack": {},
+        "//#syncpack": {
+            "inputs": [".syncpackrc.js", "package.json", "packages/**/package.json", "apps/**/package.json"]
+        },
         "test": {
             "outputs": ["node_modules/.cache/vitest/**"]
         }
