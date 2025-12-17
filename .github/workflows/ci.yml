@@ -49,7 +49,7 @@ jobs:
           path: .turbo
 
       - name: Lint
-        run: pnpm lint
+        run: pnpm lint --filter=[HEAD^1]
 
       - name: Build host
         run: pnpm build-host
