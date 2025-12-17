@@ -20,7 +20,6 @@
         "build-storybook": "turbo run build-storybook --filter=@apps/storybook",
         "serve-host": "turbo run serve-build --filter=@apps/host",
         "serve-storybook": "turbo run serve-storybook --filter=@apps/storybook",
-        "chromatic": "pnpm tsx ./tooling/chromatic.ts",
         "lint": "turbo run lint --continue",
         "eslint": "eslint . --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
         "typecheck": "tsc",
