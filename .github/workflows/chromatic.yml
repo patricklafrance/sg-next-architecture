@@ -64,6 +64,7 @@ jobs:
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
+            # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
 
       - name: Chromatic - Packages
@@ -75,6 +76,7 @@ jobs:
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
+            # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
 
       - name: Save Turborepo cache
