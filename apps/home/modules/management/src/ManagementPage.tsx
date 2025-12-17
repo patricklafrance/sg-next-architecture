@@ -19,7 +19,7 @@ export function ManagementPage() {
 
     return (
         <Div>
-            <H2>Management324234242</H2>
+            <H2>Management5464646</H2>
             {canShowCharacters ? (
                 <Div>
                     {characters.map(x => {
