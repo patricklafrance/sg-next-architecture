@@ -8,6 +8,7 @@ const StorybookDependencies = {
         "@packages/components"
     ],
     "@apps/home-storybook": [
+        "@packages/components",
         "@packages/home-core",
         "@modules/home-management",
         "@modules/home-migration"
