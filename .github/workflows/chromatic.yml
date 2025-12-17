@@ -56,7 +56,6 @@ jobs:
         run: pnpm tsx tooling/getAffectedStorybooks.ts
 
       - name: Chromatic - Home
-        # if: steps.affected.outputs['@apps/home-storybook'] == 'true'
         uses: chromaui/action@latest
         with:
             workingDir: apps/home/storybook
@@ -64,10 +63,10 @@ jobs:
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
-            skip: ${{ steps.affected.outputs['@apps/home-storybook'] == false || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
+            # Must be 'false' not false.
+            skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
 
       - name: Chromatic - Packages
-        # if: steps.affected.outputs['@apps/packages-storybook'] == 'true'
         uses: chromaui/action@latest
         with:
             workingDir: packages/storybook
@@ -75,7 +74,8 @@ jobs:
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
-            skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == false || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
+            # Must be 'false' not false.
+            skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
 
       - name: Save Turborepo cache
         id: cache-turborepo-save
