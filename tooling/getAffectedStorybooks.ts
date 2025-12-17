@@ -36,7 +36,7 @@ function createAffectedStorybooksRecordFromBooleanValue(value: boolean) {
 if (process.env.GITHUB_REF_NAME === DefaultBranch) {
     affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(true);
 
-    console.info("[getAffectedStorybooks] This is the main branche, run chromatic with \"auto accept changes\" for all Storybook applications.");
+    console.info(`[getAffectedStorybooks] This is the "${DefaultBranch}" branch. Run chromatic with "auto-accept" changes for all Storybook applications.`);
 } else {
     try {
         // Find packages diverging from the main branch.
