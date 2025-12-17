@@ -63,8 +63,8 @@ jobs:
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             onlyChanged: true
             exitOnceUploaded: true
-            autoAcceptChanges: 'main'
-            skip: ${{ github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
+            # autoAcceptChanges: 'main'
+            skip: ${{ github.event.pull_request.draft == 'true' || startsWith(github.ref, 'refs/heads/renovate/') }}
 
       - name: Chromatic - Packages
         if: steps.affected.outputs['@apps/packages-storybook'] == 'true'
@@ -74,8 +74,8 @@ jobs:
             projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
             onlyChanged: true
             exitOnceUploaded: true
-            autoAcceptChanges: 'main'
-            skip: ${{ github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
+            # autoAcceptChanges: 'main'
+            skip: ${{ github.event.pull_request.draft == 'true' || startsWith(github.ref, 'refs/heads/renovate/') }}
 
       - name: Save Turborepo cache
         id: cache-turborepo-save
