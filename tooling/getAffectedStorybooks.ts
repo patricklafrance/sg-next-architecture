@@ -42,8 +42,16 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
     console.info(`[getAffectedStorybooks] This is the "${DefaultBranch}" branch. Run chromatic with "auto-accept" changes for all Storybook applications.`);
 } else {
     try {
+        const baseSha = process.env.PR_BASE_SHA;
+
+        // If a pull request base SHA is available, use it as the comparison baseline,
+        // otherwise, fallback to the defaukt branch.
+        const filter = baseSha
+            ? `--filter=...[${baseSha}]`
+            : `--filter=[origin/${DefaultBranch}]`;
+
         // Find packages diverging from the main branch.
-        const command = `pnpm turbo ls --filter=[origin/main] --output=json`;
+        const command = `pnpm turbo ls ${filter} --output=json`;
 
         const rawResult = execSync(
             command,
@@ -59,6 +67,9 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
 
         affectedPackages = parsedResult.packages?.items.map((x: TurborepoAffectedItem) => x.name) || [];
     } catch (error: unknown) {
+        // TODO: on an error, maybe return all the Storybooks as affected?
+        // -> bail
+
         if (error instanceof Error) {
             console.error("[getAffectedStorybooks] An error occured while retrieving the affected packages from Turborepo:", error.message);
         }

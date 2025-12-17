@@ -56,6 +56,8 @@ jobs:
         id: affected
         working-directory: ${{ github.workspace }}
         run: pnpm tsx tooling/getAffectedStorybooks.ts
+        env:
+            PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
 
       - name: Chromatic - Home
         uses: chromaui/action@latest
