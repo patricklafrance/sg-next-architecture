@@ -1,3 +1,6 @@
+// Task "input" affects how the cache key (the hash) is computed. If the task run for the first time,
+// or the cache is not available (cache miss), then the "inputs" configuration will have no effect.
+
 {
     "$schema": "https://turbo.build/schema.json",
     "globalEnv": ["USE_MSW", "MODULES"],
