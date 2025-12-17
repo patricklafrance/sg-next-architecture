@@ -53,7 +53,8 @@ jobs:
 
       - name: Lint
         # Only lint the packages that are diverging from the pull request original baseline.
-        run: pnpm lint --filter=...[${{ github.event.pull_request.base.sha }}]
+        # run: pnpm lint --filter=...[${{ github.event.pull_request.base.sha }}]
+        run: pnpm turbo run lint --filter=...[${{ github.event.pull_request.base.sha }}] --continue
 
       - name: Build host
         run: pnpm build-host
