@@ -30,7 +30,7 @@
             "dependsOn": ["eslint", "//#eslint", "stylelint", "typecheck", "//#typecheck", "//#syncpack"]
         },
         "//#eslint": {
-            "inputs": ["$TURBO_DEFAULT$", "!apps", "!packages", "!docs", "!README.md", "!CONTRIBUTING.md", "!src/**/*.css"],
+            "inputs": ["$TURBO_DEFAULT$", "!apps", "!packages", "!docs", "!README.md", "!CONTRIBUTING.md", "!**/*.css"],
             "outputs": ["node_modules/.cache/eslint"]
         },
         "eslint": {
