@@ -46,12 +46,14 @@ jobs:
         id: cache-turborepo-restore
         uses: actions/cache/restore@v4
         with:
-          key: ${{ runner.os }}-turborepo-${{ hashFiles('pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-turborepo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
           restore-keys: |
               ${{ runner.os }}-turborepo-
+        #   path: |
+        #     .turbo
+        #     node_modules/.cache
           path: |
             .turbo
-            node_modules/.cache
 
       - name: ESLint
         # Only execute for the packages that are diverging from the pull request original baseline.
@@ -78,6 +80,8 @@ jobs:
         uses: actions/cache/save@v4
         with:
           key: ${{ steps.cache-turborepo-restore.outputs.cache-primary-key }}
+        #   path: |
+        #     .turbo
+        #     node_modules/.cache
           path: |
             .turbo
-            node_modules/.cache
