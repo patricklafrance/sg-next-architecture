@@ -165,7 +165,13 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
             return acc;
         }, {} as Record<keyof typeof StorybookDependencies, boolean>);
 
-        const packageNames = Object.keys(affectedStorybooks);
+        const packageNames = (Object.keys(affectedStorybooks) as (keyof typeof StorybookDependencies)[]).reduce((acc, x) => {
+            if (affectedStorybooks[x]) {
+                acc.push(x);
+            }
+
+            return acc;
+        }, [] as (keyof typeof StorybookDependencies)[]);
 
         if (packageNames.length > 0) {
             console.info(`[getAffectedStorybooks] Found ${packageNames.length} affected Storybook applications:`, packageNames);
@@ -184,16 +190,6 @@ if (!gitHubOutputPath) {
 for (const [key, value] of Object.entries(affectedStorybooks)) {
     appendFileSync(gitHubOutputPath, `${key}=${value}\n`);
 }
-
-// function writeToGitHubOutput() {
-//     const outputPath = process.env.GITHUB_OUTPUT;
-//     if (!outputPath) { throw new Error("GITHUB_OUTPUT is not set"); }
-//     fs.appendFileSync(outputPath, `${name}=${value}\n`);
-// }
-
-// for (const [key, value] of Object.entries(affectedStorybooks)) {
-//     process.stdout.write(`${key}=${value}\n`);
-// }
 
 process.exit(0);
 
