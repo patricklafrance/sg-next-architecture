@@ -4,8 +4,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 export default defineConfig([
     globalIgnores([
         "apps",
-        "packages",
-        "smoke-tests"
+        "packages"
     ]),
     defineMonorepoWorkspaceConfig(import.meta.dirname)
 ]);
