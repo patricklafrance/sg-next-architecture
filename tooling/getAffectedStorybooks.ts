@@ -35,6 +35,8 @@ function createAffectedStorybooksRecordFromBooleanValue(value: boolean) {
 
 // TODO: is it still required for GitHub? It was for ADO but I have a vague memory that it might be specific to ADO.
 if (process.env.GITHUB_REF_NAME === DefaultBranch) {
+    // When the GitHub action runs on the default branch, all Storybook applications are affected
+    // and will "auto-accept" changes (configured in the GitHub action).
     affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(true);
 
     console.info(`[getAffectedStorybooks] This is the "${DefaultBranch}" branch. Run chromatic with "auto-accept" changes for all Storybook applications.`);
@@ -67,6 +69,7 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
     if (affectedPackages.length > 0) {
         console.info(`[getAffectedStorybooks] Found ${affectedPackages.length} affected packages:`, affectedPackages);
 
+        // Find the affected Storybook applications based on the affected packages.
         affectedStorybooks = (Object.keys(StorybookDependencies) as (keyof typeof StorybookDependencies)[]).reduce((acc, x) => {
             acc[x] =
                 // If the package is the actual Storybook application package, add the Storybook package name to the list.
@@ -77,6 +80,7 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
             return acc;
         }, {} as Record<keyof typeof StorybookDependencies, boolean>);
 
+        // Get the package name of only the affected Storybook applications.
         const packageNames = (Object.keys(affectedStorybooks) as (keyof typeof StorybookDependencies)[]).reduce((acc, x) => {
             if (affectedStorybooks[x]) {
                 acc.push(x);
@@ -101,6 +105,7 @@ if (!gitHubOutputPath) {
     throw new Error("[getAffectedStorybooks] The \"GITHUB_OUTPUT\" environment variable is not set.");
 }
 
+// Values will be available in the GitHub action using syntax like: "steps.affected.outputs['@apps/packages-storybook']"".
 for (const [key, value] of Object.entries(affectedStorybooks)) {
     appendFileSync(gitHubOutputPath, `${key}=${value}\n`);
 }
