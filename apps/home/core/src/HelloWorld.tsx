@@ -1,7 +1,7 @@
-import { Div } from "@hopper-ui/components";
+import { HelloWorld as SharedHelloWorld } from "@packages/components";
 
 export function HelloWorld() {
     return (
-        <Div backgroundColor="primary">Hello World!</Div>
+        <SharedHelloWorld />
     );
 }

@@ -59,6 +59,9 @@ importers:
       '@hopper-ui/styled-system':
         specifier: ^2.5.14
         version: 2.5.14(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@packages/components':
+        specifier: workspace:*
+        version: link:../../../packages/components
       '@packages/core-module':
         specifier: workspace:*
         version: link:../../../packages/core-module
