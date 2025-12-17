@@ -17,7 +17,6 @@ const StorybookDependencies = {
     ]
 } as const;
 
-// Hey!
 interface TurborepoAffectedItem {
     name: string;
     path: string;
