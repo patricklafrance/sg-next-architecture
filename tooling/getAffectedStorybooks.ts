@@ -102,6 +102,8 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
 
         if (packageNames.length > 0) {
             console.info(`[getAffectedStorybooks] Found ${packageNames.length} affected Storybook applications:`, packageNames);
+        } else {
+            console.info("[getAffectedStorybooks] Found no affected Storybook application.");
         }
     } else {
         console.info("[getAffectedStorybooks] Found no affected package.");
