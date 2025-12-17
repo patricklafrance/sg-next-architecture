@@ -3,8 +3,6 @@ import { appendFileSync } from "node:fs";
 
 const DefaultBranch = "main";
 
-const toto = "tata";
-
 const StorybookDependencies = {
     "@apps/packages-storybook": [
         "@packages/components"
