@@ -25,13 +25,6 @@
             "cache": false,
             "persistent": true
         },
-        "chromatic": {
-            "cache": false,
-            "passThroughEnv": [
-                "HOME_CHROMATIC_PROJECT_TOKEN",
-                "PACKAGES_CHROMATIC_PROJECT_TOKEN"
-            ]
-        },
         "lint": {
             "dependsOn": ["eslint", "//#eslint", "stylelint", "typecheck", "//#typecheck", "//#syncpack"]
         },

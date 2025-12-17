@@ -55,7 +55,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: pnpm tsx tooling/getAffectedStorybooks.ts
 
-      - name: chromatic - Home
+      - name: Chromatic - Home
         if: steps.affected.outputs['@apps/home-storybook'] == 'true'
         uses: chromaui/action@latest
         with:
@@ -66,13 +66,16 @@ jobs:
             autoAcceptChanges: 'main'
             skip: ${{ github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
 
-    #   - name: chromatic
-    #     run: pnpm chromatic
-    #     env:
-    #         GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
-    #         GITHUB_REF_NAME: ${{ github.head_ref }}
-    #         HOME_CHROMATIC_PROJECT_TOKEN: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
-    #         PACKAGES_CHROMATIC_PROJECT_TOKEN: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
+      - name: Chromatic - Packages
+        if: steps.affected.outputs['@apps/packages-storybook'] == 'true'
+        uses: chromaui/action@latest
+        with:
+            workingDir: packages/storybook
+            projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
+            onlyChanged: true
+            exitOnceUploaded: true
+            autoAcceptChanges: 'main'
+            skip: ${{ github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
 
       - name: Save Turborepo cache
         id: cache-turborepo-save
