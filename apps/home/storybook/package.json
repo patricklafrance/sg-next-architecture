@@ -7,7 +7,7 @@
     "scripts": {
         "postinstall": "pnpm msw init",
         "dev": "storybook dev -p 6006 --disable-telemetry",
-        "build-storybook": "storybook build --disable-telemetry --",
+        "build-storybook": "storybook build --disable-telemetry",
         "serve-storybook": "pnpm http-server storybook-static -p 8080 -P http://localhost:8080? -c-1",
         "eslint": "eslint . --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
         "typecheck": "tsc",

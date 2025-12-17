@@ -93,7 +93,7 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
 const gitHubOutputPath = process.env.GITHUB_OUTPUT;
 
 if (!gitHubOutputPath) {
-    throw new Error("[getAffectedStorybooks] GITHUB_OUTPUT is not set.");
+    throw new Error("[getAffectedStorybooks] The \"GITHUB_OUTPUT\" environment variable is not set.");
 }
 
 for (const [key, value] of Object.entries(affectedStorybooks)) {

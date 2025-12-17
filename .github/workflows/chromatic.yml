@@ -59,6 +59,7 @@ jobs:
         if: steps.affected.outputs['@apps/home-storybook'] == 'true'
         uses: chromaui/action@latest
         with:
+            workingDir: apps/home/storybook
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             onlyChanged: true
             exitOnceUploaded: true
