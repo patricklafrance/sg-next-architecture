@@ -23,6 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          # Required for the "--filter=[HEAD^1]" of the linting step.
           fetch-depth: 0
 
       - name: Install pnpm
@@ -51,7 +52,9 @@ jobs:
           path: .turbo
 
       - name: Lint
-        run: pnpm lint --filter=[HEAD^1]
+        # Only lint the packages that are diverging from the main branch.
+        # run: pnpm lint --filter=[origin/main]
+        run: pnpm lint --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Build host
         run: pnpm build-host
