@@ -60,10 +60,10 @@ jobs:
         id: cache-turborepo-restore
         uses: actions/cache@v4
         with:
-          path: .turbo/cache
           key: ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-
+          path: .turbo
 
       - name: Get affected Storybooks
         id: affected
@@ -100,6 +100,4 @@ jobs:
         uses: actions/cache/save@v4
         with:
           key: ${{ steps.cache-turborepo-restore.outputs.cache-primary-key }}
-          path: |
-            .turbo
-            node_modules/.cache
+          path: .turbo

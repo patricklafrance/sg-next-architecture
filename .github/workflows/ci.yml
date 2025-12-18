@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Required for the "--filter=[HEAD^1]" of the linting step.
+          # Required for the Turburepo filters.
           fetch-depth: 0
 
       - name: Install pnpm
@@ -42,23 +42,26 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+    #   - name: Restore Turborepo cache
+    #     id: cache-turborepo-restore
+    #     uses: actions/cache/restore@v4
+    #     with:
+    #       path: .turbo
+    #       # Using SHA will usually generate cache hit on subsequent commits in a PR
+    #       # but will not provide cache hits between PRs, meaning the first run of a PR
+    #       # will usually only be cache misses.
+    #       key: ${{ runner.os }}-turbo-${{ github.sha }}
+    #       restore-keys: |
+    #         ${{ runner.os }}-turbo-
+
       - name: Restore Turborepo cache
         id: cache-turborepo-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache@v4
         with:
-          path: .turbo
-          # Using SHA will usually generate cache hit on subsequent commits in a PR
-          # but will not provide cache hits between PRs, meaning the first run of a PR
-          # will usually only be cache misses.
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-turbo-
-        # with:
-        #   key: ${{ runner.os }}-turborepo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
-        #   restore-keys: |
-        #       ${{ runner.os }}-turborepo-
-        #   path: |
-        #     .turbo
+            ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-
+          path: .turbo
 
       - name: ESLint
         # Only execute for the packages that are diverging from the pull request original baseline.
@@ -85,8 +88,4 @@ jobs:
         uses: actions/cache/save@v4
         with:
           key: ${{ steps.cache-turborepo-restore.outputs.cache-primary-key }}
-        #   path: |
-        #     .turbo
-        #     node_modules/.cache
-          path: |
-            .turbo
+          path: .turbo
