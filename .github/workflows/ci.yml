@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TURBO_TELEMETRY_DISABLED: "1"
 
     steps:
       - name: Checkout
@@ -42,25 +44,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-    #   - name: Restore Turborepo cache
-    #     id: cache-turborepo-restore
-    #     uses: actions/cache/restore@v4
-    #     with:
-    #       path: .turbo
-    #       # Using SHA will usually provide cache hit on subsequent commits in a PR
-    #       # but will not provide cache hits between PRs, meaning the first run of a PR
-    #       # will usually only be cache misses.
-    #       key: ${{ runner.os }}-turbo-${{ github.sha }}
-    #       restore-keys: |
-    #         ${{ runner.os }}-turbo-
-
       - name: Restore Turborepo cache
         id: cache-turborepo-restore
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
-          key: ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-${{ github.sha }}
+          # Using SHA will usually provide cache hit on subsequent commits in a PR
+          # but will not provide cache hits between PRs, meaning the first run of a PR
+          # will usually only be cache misses.
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-
+            ${{ runner.os }}-turbo-
           path: .turbo
 
       - name: ESLint
