@@ -43,17 +43,27 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+    #   - name: Restore Turborepo cache
+    #     id: cache-turborepo-restore
+    #     uses: actions/cache/restore@v4
+    #     with:
+    #       path: .turbo
+    #       # Using SHA will usually generate cache hit on subsequent commits in a PR
+    #       # but will not provide cache hits between PRs, meaning the first run of a PR
+    #       # will usually only be cache misses.
+    #       key: ${{ runner.os }}-turbo-${{ github.sha }}
+    #       restore-keys: |
+    #         ${{ runner.os }}-turbo-
+
+
       - name: Restore Turborepo cache
         id: cache-turborepo-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache@v4
         with:
-          path: .turbo
-          # Using SHA will usually generate cache hit on subsequent commits in a PR
-          # but will not provide cache hits between PRs, meaning the first run of a PR
-          # will usually only be cache misses.
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          path: .turbo/cache
+          key: ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-turbo-
+            ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}-
 
       - name: Get affected Storybooks
         id: affected
