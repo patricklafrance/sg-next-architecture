@@ -5,7 +5,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "postinstall": "pnpm msw init",
+        "postinstall": "pnpm exec msw init",
         "dev": "storybook dev -p 6006 --disable-telemetry",
         "build-storybook": "storybook build --disable-telemetry",
         "serve-storybook": "pnpm http-server storybook-static -p 8080 -P http://localhost:8080? -c-1",
