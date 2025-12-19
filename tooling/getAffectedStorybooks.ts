@@ -39,7 +39,7 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
     // and will "auto-accept" changes (configured in the GitHub action).
     affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(true);
 
-    console.info(`[getAffectedStorybooks] This is the "${DefaultBranch}" branch. Run chromatic with "auto-accept" changes for all Storybook applications.`);
+    console.info(`[getAffectedStorybooks] This is the "${DefaultBranch}" branch. Run chromatic with "auto-accept" changes for all Storybook applications. Returning all Storybook applications ss affected.`);
 } else {
     try {
         const baseSha = process.env.PR_BASE_SHA;
@@ -66,49 +66,45 @@ if (process.env.GITHUB_REF_NAME === DefaultBranch) {
         const parsedResult = JSON.parse(rawResult);
 
         affectedPackages = parsedResult.packages?.items.map((x: TurborepoAffectedItem) => x.name) || [];
-    } catch (error: unknown) {
-        // TODO: on an error, maybe return all the Storybooks as affected?
-        // -> bail
 
-        if (error instanceof Error) {
-            console.error("[getAffectedStorybooks] An error occured while retrieving the affected packages from Turborepo:", error.message);
-        }
+        if (affectedPackages.length > 0) {
+            console.info(`[getAffectedStorybooks] Found ${affectedPackages.length} affected packages:`, affectedPackages);
 
-        process.exit(1);
-    }
-
-    if (affectedPackages.length > 0) {
-        console.info(`[getAffectedStorybooks] Found ${affectedPackages.length} affected packages:`, affectedPackages);
-
-        // Find the affected Storybook applications based on the affected packages.
-        affectedStorybooks = (Object.keys(StorybookDependencies) as (keyof typeof StorybookDependencies)[]).reduce((acc, x) => {
-            acc[x] =
+            // Find the affected Storybook applications based on the affected packages.
+            affectedStorybooks = (Object.keys(StorybookDependencies) as (keyof typeof StorybookDependencies)[]).reduce((acc, x) => {
+                acc[x] =
                 // If the package is the actual Storybook application package, add the Storybook package name to the list.
-                affectedPackages.includes(x) ||
-                // If the package is a dependency of a Storybook application package, add the Storybook package name to the list.
-                StorybookDependencies[x].some((y: string) => affectedPackages.includes(y));
+                    affectedPackages.includes(x) ||
+                    // If the package is a dependency of a Storybook application package, add the Storybook package name to the list.
+                    StorybookDependencies[x].some((y: string) => affectedPackages.includes(y));
 
-            return acc;
-        }, {} as Record<keyof typeof StorybookDependencies, boolean>);
+                return acc;
+            }, {} as Record<keyof typeof StorybookDependencies, boolean>);
 
-        // Get the package name of only the affected Storybook applications.
-        const packageNames = (Object.keys(affectedStorybooks) as (keyof typeof StorybookDependencies)[]).reduce((acc, x) => {
-            if (affectedStorybooks[x]) {
-                acc.push(x);
+            // Get the package name of only the affected Storybook applications.
+            const packageNames = (Object.keys(affectedStorybooks) as (keyof typeof StorybookDependencies)[]).reduce((acc, x) => {
+                if (affectedStorybooks[x]) {
+                    acc.push(x);
+                }
+
+                return acc;
+            }, [] as (keyof typeof StorybookDependencies)[]);
+
+            if (packageNames.length > 0) {
+                console.info(`[getAffectedStorybooks] Found ${packageNames.length} affected Storybook applications:`, packageNames);
+            } else {
+                console.info("[getAffectedStorybooks] Found no affected Storybook application.");
             }
-
-            return acc;
-        }, [] as (keyof typeof StorybookDependencies)[]);
-
-        if (packageNames.length > 0) {
-            console.info(`[getAffectedStorybooks] Found ${packageNames.length} affected Storybook applications:`, packageNames);
         } else {
-            console.info("[getAffectedStorybooks] Found no affected Storybook application.");
-        }
-    } else {
-        console.info("[getAffectedStorybooks] Found no affected package.");
+            console.info("[getAffectedStorybooks] Found no affected package.");
 
-        affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(false);
+            affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(false);
+        }
+    } catch (error: unknown) {
+        console.error("[getAffectedStorybooks] An error occured while retrieving the affected packages from Turborepo:", error);
+        console.info("[getAffectedStorybooks] Returning all Storybook applications as affected.");
+
+        affectedStorybooks = createAffectedStorybooksRecordFromBooleanValue(true);
     }
 }
 
