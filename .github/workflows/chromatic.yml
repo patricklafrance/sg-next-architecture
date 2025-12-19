@@ -65,6 +65,40 @@ jobs:
         env:
             PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
 
+        # -> github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/')
+
+        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
+      - name: Build Storybook - Home
+        run: pnpm turbo run build-storybook --filter=@apps/home-storybook -- --disable-telemetry --stats-json
+        # Must be 'true' not true.
+        if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'true' }}
+
+        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
+      - name: Build Storybook - Packages
+        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook -- --disable-telemetry --stats-json
+        # Must be 'true' not true.
+        if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
+
+      - name: Find storybook-config-entry.js
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TARGET="storybook/storybook-config-entry.js"
+
+          echo "Searching for: $TARGET"
+          MATCHES="$(find "${GITHUB_WORKSPACE}" -type f -path "*/${TARGET}" -print || true)"
+
+          if [ -z "$MATCHES" ]; then
+          echo "::error::File not found: ${TARGET}"
+          echo "Here are the closest matches:"
+          find "${GITHUB_WORKSPACE}" -type f -name "storybook-config-entry.js" -print || true
+          exit 1
+          fi
+
+          echo "✅ Found:"
+          echo "$MATCHES"
+
       - name: Chromatic - Home
         uses: chromaui/action@latest
         with:
