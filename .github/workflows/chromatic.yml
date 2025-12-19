@@ -67,12 +67,12 @@ jobs:
 
       - name: Build Storybook - Home
         run: pnpm turbo run build-storybook --filter=@apps/home-storybook
-        # Must be 'false' not false.
+        # Must be 'true' not true.
         if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'true' }}
 
       - name: Build Storybook - Packages
-        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook
-        # Must be 'false' not false.
+        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook -- --debug
+        # Must be 'true' not true.
         if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
 
       - name: Chromatic - Home
@@ -80,7 +80,7 @@ jobs:
         with:
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             workingDir: apps/home/storybook
-            storybookBuildDir: apps/home/storybook/storybook-static
+            storybookBuildDir: home/runner/work/sg-next-architecture/sg-next-architecture/apps/home/storybook/storybook-static
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
