@@ -52,8 +52,9 @@ jobs:
           # Using SHA will usually provide cache hit on subsequent commits in a PR
           # but will not provide cache hits between PRs, meaning the first run of a PR
           # will usually only be cache misses.
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.sha }}-${{ github.run_attempt }}
           restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.sha }}
             ${{ runner.os }}-turbo-
           path: .turbo
 
