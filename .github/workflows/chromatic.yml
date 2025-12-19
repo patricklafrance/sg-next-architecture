@@ -67,13 +67,15 @@ jobs:
 
         # -> github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/')
 
+        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
       - name: Build Storybook - Home
-        run: pnpm turbo run build-storybook --filter=@apps/home-storybook
+        run: pnpm turbo run build-storybook --filter=@apps/home-storybook -- --disable-telemetry --stats-json
         # Must be 'true' not true.
         if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'true' }}
 
+        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
       - name: Build Storybook - Packages
-        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook
+        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook -- --disable-telemetry --stats-json
         # Must be 'true' not true.
         if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
 
