@@ -1,6 +1,5 @@
 {
     "$schema": "https://www.chromatic.com/config-file.schema.json",
     "projectId": "Project:694091b0077ec66d8a8497d8",
-    "storybookBaseDir": "apps/home/storybook",
     "zip": true
 }
