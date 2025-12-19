@@ -54,6 +54,7 @@ jobs:
           # will usually only be cache misses.
           key: ${{ runner.os }}-turbo-${{ github.sha }}-chromatic
           restore-keys: |
+            ${{ runner.os }}-turbo-${{ github.sha }}
             ${{ runner.os }}-turbo-
           path: .turbo
 
