@@ -97,8 +97,8 @@ jobs:
         with:
             projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
             storybookBaseDir: packages/storybook
-            storybookConfigDir: packages/storybook/.storybook
             storybookBuildDir: packages/storybook/storybook-static
+            buildScriptName: ""
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
