@@ -79,18 +79,6 @@ jobs:
         # Must be 'true' not true.
         if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
 
-      - name: Validate Storybook folder exists
-        run: |
-            set -euo pipefail
-            DIR="apps/home/storybook/storybook-static"
-            if [ ! -d "$DIR" ]; then
-            echo "::error::Directory not found: $DIR"
-            echo "Current working dir: $(pwd)"
-            ls -la
-            exit 1
-            fi
-            echo "✅ Found directory: $DIR"
-
       - name: Chromatic - Home
         uses: chromaui/action@latest
         with:
@@ -102,7 +90,7 @@ jobs:
             # autoAcceptChanges: 'main'
             # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
-            # debug: true
+            debug: true
 
       - name: Chromatic - Packages
         uses: chromaui/action@latest
@@ -115,7 +103,7 @@ jobs:
             # autoAcceptChanges: 'main'
             # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
-            # debug: true
+            debug: true
 
       - name: Save Turborepo cache
         id: cache-turborepo-save
