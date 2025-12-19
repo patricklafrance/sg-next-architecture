@@ -68,12 +68,12 @@ jobs:
       - name: Build Storybook - Home
         run: pnpm turbo run build-storybook --filter=@apps/home-storybook
         # Must be 'false' not false.
-        if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' }}
+        if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'true' }}
 
       - name: Build Storybook - Packages
         run: pnpm turbo run build-storybook --filter=@apps/packages-storybook
         # Must be 'false' not false.
-        if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' }}
+        if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
 
       - name: Chromatic - Home
         uses: chromaui/action@latest
