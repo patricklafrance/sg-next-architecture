@@ -102,8 +102,9 @@ jobs:
       - name: Chromatic - Home
         uses: chromaui/action@latest
         with:
-            workingDir: apps/home/storybook
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
+            workingDir: apps/home/storybook
+            storybookBuildDir: "storybook-static"
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
@@ -114,8 +115,9 @@ jobs:
       - name: Chromatic - Packages
         uses: chromaui/action@latest
         with:
-            workingDir: packages/storybook
             projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
+            workingDir: packages/storybook
+            storybookBuildDir: "storybook-static"
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
