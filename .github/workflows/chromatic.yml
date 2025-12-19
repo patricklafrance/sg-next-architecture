@@ -92,7 +92,7 @@ jobs:
         with:
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             workingDir: apps/home/storybook
-            storybookBuildDir: ./apps/home/storybook/storybook-static
+            storybookBuildDir: apps/home/storybook/storybook-static
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
