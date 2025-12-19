@@ -65,6 +65,16 @@ jobs:
         env:
             PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
 
+      - name: Build Storybook - Home
+        run: pnpm turbo run build-storybook --filter=@apps/home-storybook
+        # Must be 'false' not false.
+        if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' }}
+
+      - name: Build Storybook - Packages
+        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook
+        # Must be 'false' not false.
+        if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' }}
+
       - name: Chromatic - Home
         uses: chromaui/action@latest
         with:
