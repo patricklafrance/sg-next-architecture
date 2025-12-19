@@ -65,6 +65,8 @@ jobs:
         env:
             PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
 
+        # -> github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/')
+
       - name: Build Storybook - Home
         run: pnpm turbo run build-storybook --filter=@apps/home-storybook
         # Must be 'true' not true.
@@ -92,7 +94,7 @@ jobs:
         with:
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             workingDir: apps/home/storybook
-            storybookBuildDir: apps/home/storybook/storybook-static
+            storybookBuildDir: storybook-static
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
@@ -105,7 +107,7 @@ jobs:
         with:
             projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
             workingDir: packages/storybook
-            storybookBuildDir: packages/storybook/storybook-static
+            storybookBuildDir: storybook-static
             onlyChanged: true
             exitOnceUploaded: true
             # autoAcceptChanges: 'main'
