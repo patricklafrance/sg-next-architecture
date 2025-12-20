@@ -41,7 +41,6 @@
         "@workleap/typescript-configs": "3.0.7",
         "cross-env": "10.1.0",
         "eslint": "9.39.2",
-        "netlify-cli": "23.13.0",
         "syncpack": "13.0.4",
         "tsx": "4.21.0",
         "turbo": "2.7.0",
