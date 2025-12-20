@@ -18,7 +18,7 @@
         "typecheck": "tsc"
     },
     "dependencies": {
-        "@hopper-ui/components": "1.16.3",
+        "@hopper-ui/components": "1.16.4",
         "@hopper-ui/icons": "2.10.4",
         "@hopper-ui/styled-system": "2.5.14",
         "@modules/home-management": "workspace:*",
@@ -33,18 +33,18 @@
         "@workleap/logrocket": "2.1.7",
         "@workleap/telemetry": "2.1.10",
         "launchdarkly-js-client-sdk": "3.9.0",
-        "logrocket": "10.1.1",
+        "logrocket": "11.0.0",
         "react": "19.2.3",
-        "react-aria": "3.44.0",
-        "react-aria-components": "1.13.0",
+        "react-aria": "3.45.0",
+        "react-aria-components": "1.14.0",
         "react-dom": "19.2.3",
-        "react-router": "7.10.1"
+        "react-router": "7.11.0"
     },
     "devDependencies": {
         "@eslint/js": "9.39.2",
-        "@rsbuild/core": "1.6.14",
-        "@rslib/core": "0.18.4",
-        "@rspack/core": "1.6.7",
+        "@rsbuild/core": "1.6.15",
+        "@rslib/core": "0.18.5",
+        "@rspack/core": "1.6.8",
         "@types/react": "19.2.7",
         "@types/react-dom": "19.2.3",
         "@typescript-eslint/parser": "8.50.0",
@@ -58,8 +58,8 @@
         "http-server": "14.1.1",
         "msw": "2.12.4",
         "prettier": "3.7.4",
-        "storybook": "10.1.9",
-        "storybook-react-rsbuild": "3.1.0",
+        "storybook": "10.1.10",
+        "storybook-react-rsbuild": "3.2.0",
         "stylelint": "16.26.1",
         "typescript": "5.9.3",
         "typescript-eslint": "8.50.0"
