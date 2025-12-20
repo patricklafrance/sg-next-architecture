@@ -10,8 +10,7 @@ const storybookConfig: StorybookConfig = {
         getAbsolutePath("@storybook/addon-a11y")
     ],
     stories: [
-        "../../components/src/**/*.stories.tsx",
-        "../../core-module/src/**/*.stories.tsx"
+        "../../*/src/**/*.stories.tsx"
     ],
     staticDirs: ["public"],
     rsbuildFinal: config => {
