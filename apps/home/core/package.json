@@ -12,7 +12,7 @@
         "typecheck": "tsc"
     },
     "peerDependencies": {
-        "@hopper-ui/components": "^1.16.3",
+        "@hopper-ui/components": "^1.16.4",
         "@hopper-ui/icons": "^2.10.4",
         "@hopper-ui/styled-system": "^2.5.14",
         "react": "^19.2.3",
@@ -30,7 +30,7 @@
         "@workleap/eslint-configs": "1.1.8",
         "@workleap/typescript-configs": "3.0.7",
         "eslint": "9.39.2",
-        "storybook-react-rsbuild": "3.1.0",
+        "storybook-react-rsbuild": "3.2.0",
         "typescript": "5.9.3",
         "typescript-eslint": "8.50.0"
     }
