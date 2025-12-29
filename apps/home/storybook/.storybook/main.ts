@@ -13,12 +13,7 @@ const storybookConfig: StorybookConfig = {
         "../../core/src/**/*.stories.tsx",
         "../../modules/*/src/**/*.stories.tsx"
     ],
-    staticDirs: ["public"],
-    rsbuildFinal: config => {
-        config.plugins = config.plugins || [];
-
-        return config;
-    }
+    staticDirs: ["public"]
 };
 
 export default storybookConfig;
