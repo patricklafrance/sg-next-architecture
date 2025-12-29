@@ -1,3 +1,4 @@
+import { mergeRsbuildConfig } from "@rsbuild/core";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import type { StorybookConfig } from "storybook-react-rsbuild";
@@ -15,20 +16,30 @@ const storybookConfig: StorybookConfig = {
     ],
     staticDirs: ["public"],
     rsbuildFinal: config => {
-        config.plugins = config.plugins || [];
+        return mergeRsbuildConfig(config, {
+            tools: {
+                rspack: {
+                    optimization: {
+                        concatenateModules: false
+                    }
+                }
+            }
+        });
 
-        config.tools = config.tools || {};
-        config.tools.rspack = config.tools.rspack || {};
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        config.tools.rspack.optimization = {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            ...config.tools.rspack.optimization,
-            concatenateModules: false
-        };
+        // config.plugins = config.plugins || [];
 
-        return config;
+        // config.tools = config.tools || {};
+        // config.tools.rspack = config.tools.rspack || {};
+        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // // @ts-ignore
+        // config.tools.rspack.optimization = {
+        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //     // @ts-ignore
+        //     ...config.tools.rspack.optimization,
+        //     concatenateModules: false
+        // };
+
+        // return config;
     }
 };
 
