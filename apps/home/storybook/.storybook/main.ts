@@ -1,3 +1,4 @@
+import { mergeRsbuildConfig } from "@rsbuild/core";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import type { StorybookConfig } from "storybook-react-rsbuild";
@@ -13,7 +14,18 @@ const storybookConfig: StorybookConfig = {
         "../../core/src/**/*.stories.tsx",
         "../../modules/*/src/**/*.stories.tsx"
     ],
-    staticDirs: ["public"]
+    staticDirs: ["public"],
+    rsbuildFinal: config => {
+        return mergeRsbuildConfig(config, {
+            tools: {
+                rspack: {
+                    optimization: {
+                        concatenateModules: false
+                    }
+                }
+            }
+        });
+    }
 };
 
 export default storybookConfig;
