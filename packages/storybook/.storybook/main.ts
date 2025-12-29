@@ -25,21 +25,6 @@ const storybookConfig: StorybookConfig = {
                 }
             }
         });
-
-        // config.plugins = config.plugins || [];
-
-        // config.tools = config.tools || {};
-        // config.tools.rspack = config.tools.rspack || {};
-        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // // @ts-ignore
-        // config.tools.rspack.optimization = {
-        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //     // @ts-ignore
-        //     ...config.tools.rspack.optimization,
-        //     concatenateModules: false
-        // };
-
-        // return config;
     }
 };
 
