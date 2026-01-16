@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          # Required for the Turburepo filters.
+          # Required for the Turburepo Git filters.
           fetch-depth: 0
 
       - name: Install pnpm
@@ -58,19 +58,19 @@ jobs:
           path: .turbo
 
       - name: ESLint
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Stylelint
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Syncpack
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run syncpack --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Typecheck
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Build host
