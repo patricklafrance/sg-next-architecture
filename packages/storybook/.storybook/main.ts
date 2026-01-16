@@ -16,6 +16,8 @@ const storybookConfig: StorybookConfig = {
     ],
     staticDirs: ["public"],
     rsbuildFinal: config => {
+        // Should be moved to the rsbuild.config.ts file - Otherwise update @workleap/rsbuild-configs docs to mention "mergeRsbuildConfig".
+        // Will requires the usage of a "transformer".
         return mergeRsbuildConfig(config, {
             tools: {
                 rspack: {
