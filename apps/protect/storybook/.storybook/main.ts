@@ -1,4 +1,3 @@
-import { mergeRsbuildConfig } from "@rsbuild/core";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import type { StorybookConfig } from "storybook-react-rsbuild";
@@ -14,20 +13,7 @@ const storybookConfig: StorybookConfig = {
         "../../core/src/**/*.stories.tsx",
         "../../modules/*/src/**/*.stories.tsx"
     ],
-    staticDirs: ["public"],
-    rsbuildFinal: config => {
-        // Should be moved to the rsbuild.config.ts file - Otherwise update @workleap/rsbuild-configs docs to mention "mergeRsbuildConfig".
-        // Will requires the usage of a "transformer".
-        return mergeRsbuildConfig(config, {
-            tools: {
-                rspack: {
-                    optimization: {
-                        concatenateModules: false
-                    }
-                }
-            }
-        });
-    }
+    staticDirs: ["public"]
 };
 
 export default storybookConfig;

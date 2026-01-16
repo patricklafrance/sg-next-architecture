@@ -15,14 +15,14 @@
         "@hopper-ui/components": "^1.16.4",
         "@hopper-ui/icons": "^2.10.4",
         "@hopper-ui/styled-system": "^2.5.14",
-        "@squide/firefly": "^16.1.4",
-        "@squide/firefly-rsbuild-storybook": "^1.0.4",
-        "@tanstack/react-query": "^5.90.12",
+        "@squide/firefly": "^16.1.5",
+        "@squide/firefly-rsbuild-storybook": "^1.0.5",
+        "@tanstack/react-query": "^5.90.18",
         "launchdarkly-js-client-sdk": "^3.9.0",
-        "msw": "^2.12.4",
+        "msw": "^2.12.7",
         "react": "^19.2.3",
         "react-dom": "^19.2.3",
-        "react-router": "^7.11.0"
+        "react-router": "^7.12.0"
     },
     "dependencies": {
         "@packages/core": "workspace:*",
@@ -30,15 +30,15 @@
     },
     "devDependencies": {
         "@eslint/js": "9.39.2",
-        "@types/react": "19.2.7",
+        "@types/react": "19.2.8",
         "@types/react-dom": "19.2.3",
-        "@typescript-eslint/parser": "8.50.0",
-        "@workleap/eslint-configs": "1.1.8",
+        "@typescript-eslint/parser": "8.53.0",
+        "@workleap/eslint-configs": "1.1.10",
         "@workleap/typescript-configs": "3.0.7",
         "eslint": "9.39.2",
-        "msw": "2.12.4",
-        "storybook-react-rsbuild": "3.2.0",
+        "msw": "2.12.7",
+        "storybook-react-rsbuild": "3.2.2",
         "typescript": "5.9.3",
-        "typescript-eslint": "8.50.0"
+        "typescript-eslint": "8.53.0"
     }
 }
