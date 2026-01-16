@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
             # Required to calculate chromatic baseline.
             fetch-depth: 0
@@ -35,7 +35,7 @@ jobs:
           run_install: false
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
             node-version: ">=24.0.0"
             check-latest: true
@@ -47,7 +47,7 @@ jobs:
 
       - name: Restore Turborepo cache
         id: cache-turborepo-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           # Using SHA will usually provide cache hit on subsequent commits in a PR
           # but will not provide cache hits between PRs, meaning the first run of a PR
@@ -65,29 +65,14 @@ jobs:
         env:
             PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
 
-        # -> github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/')
-
-        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
-      - name: Build Storybook - Home
-        run: pnpm turbo run build-storybook --filter=@apps/home-storybook -- --disable-telemetry --stats-json
-        # Must be 'true' not true.
-        if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'true' }}
-
-        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
-      - name: Build Storybook - Packages
-        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook -- --disable-telemetry --stats-json
-        # Must be 'true' not true.
-        if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
-
       - name: Chromatic - Home
         uses: chromaui/action@latest
         with:
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             workingDir: apps/home/storybook
-            storybookBuildDir: "storybook-static"
             onlyChanged: true
             exitOnceUploaded: true
-            # autoAcceptChanges: 'main'
+            autoAcceptChanges: 'main'
             # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
             debug: true
@@ -97,10 +82,9 @@ jobs:
         with:
             projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
             workingDir: packages/storybook
-            storybookBuildDir: "storybook-static"
             onlyChanged: true
             exitOnceUploaded: true
-            # autoAcceptChanges: 'main'
+            autoAcceptChanges: 'main'
             # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
             debug: true
@@ -108,7 +92,7 @@ jobs:
       - name: Save Turborepo cache
         id: cache-turborepo-save
         if: always() && steps.cache-turborepo-restore.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           key: ${{ steps.cache-turborepo-restore.outputs.cache-primary-key }}
           path: .turbo

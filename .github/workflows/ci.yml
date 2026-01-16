@@ -23,9 +23,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          # Required for the Turburepo filters.
+          # Required for the Turburepo Git filters.
           fetch-depth: 0
 
       - name: Install pnpm
@@ -34,7 +34,7 @@ jobs:
           run_install: false
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
             node-version: ">=24.0.0"
             check-latest: true
@@ -46,7 +46,7 @@ jobs:
 
       - name: Restore Turborepo cache
         id: cache-turborepo-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           # Using SHA will usually provide cache hit on subsequent commits in a PR
           # but will not provide cache hits between PRs, meaning the first run of a PR
@@ -58,19 +58,19 @@ jobs:
           path: .turbo
 
       - name: ESLint
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Stylelint
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Syncpack
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run syncpack --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Typecheck
-        # Only execute for the packages that are diverging from the pull request original baseline.
+        # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Build host
@@ -79,7 +79,7 @@ jobs:
       - name: Save Turborepo cache
         id: cache-turborepo-save
         if: always() && steps.cache-turborepo-restore.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           key: ${{ steps.cache-turborepo-restore.outputs.cache-primary-key }}
           path: .turbo
