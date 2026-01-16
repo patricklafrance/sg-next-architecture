@@ -67,27 +67,26 @@ jobs:
 
         # -> github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/')
 
-        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
-      - name: Build Storybook - Home
-        run: pnpm turbo run build-storybook --filter=@apps/home-storybook -- --disable-telemetry --stats-json
-        # Must be 'true' not true.
-        if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'true' }}
+    #     # Splitting Storybook compilation and Chromatic execution faciliate debugging.
+    #   - name: Build Storybook - Home
+    #     run: pnpm turbo run build-storybook --filter=@apps/home-storybook -- --disable-telemetry --stats-json
+    #     # Must be 'true' not true.
+    #     if: ${{ steps.affected.outputs['@apps/home-storybook'] == 'true' }}
 
-        # Splitting Storybook compilation and Chromatic execution faciliate debugging.
-      - name: Build Storybook - Packages
-        run: pnpm turbo run build-storybook --filter=@apps/packages-storybook -- --disable-telemetry --stats-json
-        # Must be 'true' not true.
-        if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
+    #     # Splitting Storybook compilation and Chromatic execution faciliate debugging.
+    #   - name: Build Storybook - Packages
+    #     run: pnpm turbo run build-storybook --filter=@apps/packages-storybook -- --disable-telemetry --stats-json
+    #     # Must be 'true' not true.
+    #     if: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'true' }}
 
       - name: Chromatic - Home
         uses: chromaui/action@latest
         with:
             projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
             workingDir: apps/home/storybook
-            storybookBuildDir: "storybook-static"
             onlyChanged: true
             exitOnceUploaded: true
-            # autoAcceptChanges: 'main'
+            autoAcceptChanges: 'main'
             # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
             debug: true
@@ -97,10 +96,9 @@ jobs:
         with:
             projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
             workingDir: packages/storybook
-            storybookBuildDir: "storybook-static"
             onlyChanged: true
             exitOnceUploaded: true
-            # autoAcceptChanges: 'main'
+            autoAcceptChanges: 'main'
             # Must be 'false' not false.
             skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
             debug: true
