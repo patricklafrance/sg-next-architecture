@@ -1,12 +1,12 @@
 # sg-next-architecture
 
-This repository is a proof of concept (POC) that explores how to set up a monorepo for a large, modular monolith unified application hosting multiple products. The main motivations behind this architectural approach are simplicity, faster execution, and improved user experience.
+This repository is a proof of concept (POC) that explores how to set up a monorepo for a large, [modular monolith](https://www.geeksforgeeks.org/system-design/what-is-a-modular-monolith) hosting multiple products (unified application). The main motivations behind this architectural approach are simplicity, faster execution, and an improved user experience.
 
-From a UX perspective, the assumption is that switching between products within a unified application provides a smoother experience than using architectural patterns such as microfrontends. In a unified application, there is little to no remote context to load when users navigate between products, which reduces latency and visual disruptions.
+From a UX perspective, the assumption is that switching between products within a unified application provides a smoother experience than architectural patterns such as [microfrontends](https://micro-frontends.org/). In a unified application, there is little to no remote context to load when users navigate between products, which helps reduce latency and visual disruptions.
 
-The goal of this POC is to demonstrate how tools such as Storybook, chromatic, and CI workflows can be configured so that individual teams are not penalized by changes in code that falls outside their ownership boundaries.
+The goal of this POC is to demonstrate how tools such as [Storybook](https://storybook.js.org/), [Chromatic](https://www.chromatic.com/), and CI workflows can be configured so that individual teams are not penalized by changes in code outside their ownership boundaries, while still allowing these tools to run efficiently at scale.
 
-The approach tested in this POC consists of splitting the codebase into domain-oriented modules and relying on Turborepo to detect unaffected modules and skip them during operations such as building, linting, type checking and testing (including visual regression testing with chromatic).
+The approach tested in this POC involves splitting the codebase into domain-oriented modules and relying on Turborepo to detect unaffected modules and skip them during operations such as building, linting, type checking, and testing, including visual regression testing with Chromatic.
 
 ## Structure
 
