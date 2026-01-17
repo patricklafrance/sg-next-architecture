@@ -76,7 +76,7 @@ The [ci.yml](.github/workflows/ci.yml) workflow builds, lints, and tests the app
 
 The [chromatic.yml](.github/workflows/chromatic.yml) workflow runs the individual Storybook instances (such as `apps/home/storybook`, `apps/protect/storybook`, and `packages/storybook`) using the Chromatic cloud service. To control costs, the goal is to avoid running Storybook instances that are unaffected by a given change, since even [Turbosnaps](https://www.chromatic.com/docs/turbosnap/) incur usage costs.
 
-To achieve this, the workflow relies on Turborepo to determine which Storybook instances need to be built and uploaded to Chromatic for visual regression testing.
+To achieve this, the workflow relies on Turborepo ([tooling/getAffectedStorybooks.ts](./tooling/getAffectedStorybooks.ts)) to determine which Storybook instances need to be built and uploaded to Chromatic for visual regression testing.
 
 ## Artefacts
 
@@ -94,3 +94,7 @@ Here's the difference between both of them according to Chat GPT:
 
 - pnpm msw … starts a nested pnpm command while pnpm is still installing, which is what commonly triggers the corrupted workspace-state JSON and the Unexpected end of JSON input.
 - pnpm exec … just runs the MSW binary from the workspace context without re-entering pnpm's "install" logic.
+
+## TODO
+
+- Is it necessary to run Chromatic on the main branch after a PR has been merged?
