@@ -58,20 +58,35 @@ jobs:
           path: .turbo
 
       - name: ESLint
-        # Only execute for the project that are diverging from the pull request original baseline.
-        run: pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}]
+        # For a PR, only lint the projects that are diverging from the pull request original baseline.
+        run: |
+            if [ "${{ github.event_name }}" == "pull_request" ]; then
+                pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}]
+            else
+                pnpm turbo run eslint
+            fi
 
       - name: Stylelint
-        # Only execute for the project that are diverging from the pull request original baseline.
-        run: pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}]
+        # For a PR, only lint the projects that are diverging from the pull request original baseline.
+        run: |
+            if [ "${{ github.event_name }}" == "pull_request" ]; then
+                pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}]
+            else
+                pnpm turbo run stylelint
+            fi
+
+      - name: Typecheck
+        # For a PR, only typecheck the projects that are diverging from the pull request original baseline.
+        run: |
+            if [ "${{ github.event_name }}" == "pull_request" ]; then
+                pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}]
+            else
+                pnpm turbo run typecheck
+            fi
 
       - name: Syncpack
         # Only execute for the project that are diverging from the pull request original baseline.
         run: pnpm turbo run syncpack --filter=...[${{ github.event.pull_request.base.sha }}]
-
-      - name: Typecheck
-        # Only execute for the project that are diverging from the pull request original baseline.
-        run: pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}]
 
       - name: Build host
         run: pnpm build-host
