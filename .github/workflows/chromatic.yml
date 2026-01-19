@@ -65,7 +65,7 @@ jobs:
         shell: bash
         # Use the before SHA for pushes to main, otherwise compute the merge-base for PRs.
         run: |
-            if [ ${{ github.ref }}" = "refs/heads/main" ]; then
+            if [ "${{ github.ref }}" = "refs/heads/main" ]; then
                 echo "VALUE=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
             else
                 # push to a feature branch: diff against merge-base with main
