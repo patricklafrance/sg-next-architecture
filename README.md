@@ -98,4 +98,3 @@ Here's the difference between both of them according to Chat GPT:
 ## TODO
 
 - Is it necessary to run Chromatic on the main branch after a PR has been merged?
--
