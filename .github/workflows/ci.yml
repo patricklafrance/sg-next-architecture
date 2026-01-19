@@ -85,8 +85,7 @@ jobs:
             fi
 
       - name: Syncpack
-        # Only execute for the project that are diverging from the pull request original baseline.
-        run: pnpm turbo run syncpack --filter=...[${{ github.event.pull_request.base.sha }}]
+        run: pnpm turbo run syncpack
 
       - name: Build host
         run: pnpm build-host
