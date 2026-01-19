@@ -1,15 +1,13 @@
 name: Chromatic
 
-# TODO:
-# - skip draft PRs
-
 # PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
 
-# According to Chromatic documentation, the pipeline should only run on "push" events to avoid running on "ephemeral merge commits"
-# and polluting the Git history.
 on:
+  # TODO: Maybe remove the "push" do not re-run the job on the main branch?
   push:
-    branches-ignore: ['renovate/**']
+    branches: ['main']
+  pull_request:
+    branches: ['main']
 
 env:
   CI: true
@@ -60,24 +58,12 @@ jobs:
             ${{ runner.os }}-turbo-
           path: .turbo
 
-      - name: Compute base SHA
-        id: compute-base-sha
-        shell: bash
-        # Use the before SHA for pushes to main, otherwise compute the merge-base for PRs.
-        run: |
-            if [ ${{ github.ref }}" = "refs/heads/main" ]; then
-                echo "VALUE=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
-            else
-                # push to a feature branch: diff against merge-base with main
-                echo "VALUE=$(git merge-base origin/main $GITHUB_SHA)" >> "$GITHUB_OUTPUT"
-            fi
-
       - name: Get affected Storybooks
         id: affected
         working-directory: ${{ github.workspace }}
         run: pnpm tsx tooling/getAffectedStorybooks.ts
         env:
-            BASE_SHA: ${{ steps.compute-base-sha.outputs.VALUE }}
+            PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
 
       - name: Chromatic - Home
         uses: chromaui/action@latest
@@ -88,7 +74,7 @@ jobs:
             exitOnceUploaded: true
             autoAcceptChanges: 'main'
             # Must be 'false' not false.
-            skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' }}
+            skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
             debug: true
 
       - name: Chromatic - Packages
@@ -100,7 +86,7 @@ jobs:
             exitOnceUploaded: true
             autoAcceptChanges: 'main'
             # Must be 'false' not false.
-            skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' }}
+            skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' || github.event.pull_request.draft == true || startsWith(github.ref, 'refs/heads/renovate/') }}
             debug: true
 
       - name: Save Turborepo cache
