@@ -2,6 +2,7 @@ name: Chromatic
 
 # TODO:
 # - skip draft PRs
+# - Move "main" into a const like DEFAULT_BRANCH
 
 # PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
 
