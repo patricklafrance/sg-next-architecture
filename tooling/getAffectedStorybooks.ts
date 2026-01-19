@@ -34,7 +34,11 @@ function createAffectedStorybooksRecordFromBooleanValue(value: boolean) {
 }
 
 try {
-    const baseSha = process.env.PR_BASE_SHA;
+    const baseSha = process.env.BASE_SHA;
+
+    if (!baseSha) {
+        throw new Error("[getAffectedStorybooks] The \"BASE_SHA\" environment variable is not set.");
+    }
 
     // // If a pull request base SHA is available, use it as the comparison baseline,
     // // otherwise, fallback to the default branch.
