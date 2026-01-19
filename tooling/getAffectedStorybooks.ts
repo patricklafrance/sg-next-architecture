@@ -1,8 +1,6 @@
 import { execSync } from "node:child_process";
 import { appendFileSync } from "node:fs";
 
-const DefaultBranch = "main";
-
 const StorybookDependencies = {
     "@apps/packages-storybook": [
         "@packages/components"
