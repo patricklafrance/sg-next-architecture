@@ -71,7 +71,7 @@ jobs:
         # For pushes to main, the base SHA is the before SHA of the push event.
         # For PRs, it's the base SHA of the PR.
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
               echo "VALUE=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
           else
               echo "VALUE=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
@@ -82,7 +82,7 @@ jobs:
         # For pushes to main, it's always false.
         # For PRs, check if the PR is a draft.
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
               echo "VALUE=false" >> "$GITHUB_OUTPUT"
           else
               echo "VALUE=${{ github.event.pull_request.draft }}" >> "$GITHUB_OUTPUT"
