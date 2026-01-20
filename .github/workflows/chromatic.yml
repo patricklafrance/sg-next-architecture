@@ -1,3 +1,10 @@
+# The strategy is to run on both "push" and "pull_request" events targeting the main branch.
+# For PRs, the base SHA is the base of the PR, so only changes relative to main are considered.
+# For pushes to main, the base SHA is the before SHA of the push event.
+# This ensures that Chromatic only considers changes relative to main, avoiding ephemeral merge commits.
+# For additional information, refer to: https://www.chromatic.com/docs/github-actions/#recommended-configuration-for-build-events.
+# The reason why "pull_request" events are included is to ensure that draft PRs can be (easily) detected and skipped.
+
 name: Chromatic
 
 on:
@@ -39,6 +46,7 @@ jobs:
           CHROMATIC_SHA: ${{ github.event.pull_request.head.sha || github.ref }}
           CHROMATIC_SLUG: ${{ github.repository }}
 
+        # PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:

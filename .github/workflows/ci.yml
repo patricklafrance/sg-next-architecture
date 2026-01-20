@@ -1,7 +1,5 @@
 name: CI
 
-# PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
-
 on:
   push:
     branches:
@@ -29,6 +27,7 @@ jobs:
         with:
           fetch-depth: 0
 
+        # PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
