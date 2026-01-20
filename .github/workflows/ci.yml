@@ -4,9 +4,11 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 env:
   CI: true
@@ -19,13 +21,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TURBO_TELEMETRY_DISABLED: "1"
+      TURBO_TELEMETRY_DISABLED: '1'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          # Required for the Turburepo Git filters.
           fetch-depth: 0
 
       - name: Install pnpm
@@ -36,10 +37,10 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v6
         with:
-            node-version: ">=24.0.0"
-            check-latest: true
-            cache: pnpm
-            cache-dependency-path: pnpm-lock.yaml
+          node-version: '>=24.0.0'
+          check-latest: true
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -48,9 +49,6 @@ jobs:
         id: cache-turborepo-restore
         uses: actions/cache/restore@v5
         with:
-          # Using SHA will usually provide cache hit on subsequent commits in a PR
-          # but will not provide cache hits between PRs, meaning the first run of a PR
-          # will usually only be cache misses.
           key: ${{ runner.os }}-turbo-ci-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-ci-
@@ -58,31 +56,28 @@ jobs:
           path: .turbo
 
       - name: ESLint
-        # For a PR, only lint the projects that are diverging from the pull request original baseline.
         run: |
-            if [ "${{ github.event_name }}" == "pull_request" ]; then
-                pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}]
-            else
-                pnpm turbo run eslint
-            fi
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+              pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}]
+          else
+              pnpm turbo run eslint
+          fi
 
       - name: Stylelint
-        # For a PR, only lint the projects that are diverging from the pull request original baseline.
         run: |
-            if [ "${{ github.event_name }}" == "pull_request" ]; then
-                pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}]
-            else
-                pnpm turbo run stylelint
-            fi
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+              pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}]
+          else
+              pnpm turbo run stylelint
+          fi
 
       - name: Typecheck
-        # For a PR, only typecheck the projects that are diverging from the pull request original baseline.
         run: |
-            if [ "${{ github.event_name }}" == "pull_request" ]; then
-                pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}]
-            else
-                pnpm turbo run typecheck
-            fi
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+              pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}]
+          else
+              pnpm turbo run typecheck
+          fi
 
       - name: Syncpack
         run: pnpm turbo run syncpack
@@ -97,3 +92,4 @@ jobs:
         with:
           key: ${{ steps.cache-turborepo-restore.outputs.cache-primary-key }}
           path: .turbo
+
