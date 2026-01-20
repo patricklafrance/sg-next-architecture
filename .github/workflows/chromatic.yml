@@ -68,24 +68,24 @@ jobs:
       - name: Get base SHA
         id: get-base-sha
         shell: bash
-        # For pushes to main, the base SHA is the before SHA of the push event.
         # For PRs, it's the base SHA of the PR.
+        # For pushes to main, the base SHA is the before SHA of the push event.
         run: |
-          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-              echo "VALUE=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "VALUE=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
           else
-              echo "VALUE=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+            echo "VALUE=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Get is draft
         id: get-is-draft
-        # For pushes to main, it's always false.
         # For PRs, check if the PR is a draft.
+        # For pushes to main, it's always false.
         run: |
-          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-              echo "VALUE=false" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "VALUE=${{ github.event.pull_request.draft }}" >> "$GITHUB_OUTPUT"
           else
-              echo "VALUE=${{ github.event.pull_request.draft }}" >> "$GITHUB_OUTPUT"
+            echo "VALUE=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Get affected Storybooks
