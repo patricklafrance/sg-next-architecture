@@ -54,10 +54,19 @@ jobs:
             ${{ runner.os }}-turbo-
           path: .turbo
 
+      - name: Build host
+        # For a PR, only build the host if it's diverging from the pull request original baseline.
+        run: |
+            if [ "${{ github.event_name }}" == "pull_request" ]; then
+                pnpm turbo run build --filter={@apps/host}...[${{ github.event.pull_request.base.sha }}]
+            else
+                pnpm build-host
+            fi
+
       - name: ESLint
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-              pnpm turbo run eslint --filter=...[${{ github.event.pull_request.base.sha }}]
+              pnpm turbo run eslint --continue --filter=...[${{ github.event.pull_request.base.sha }}]
           else
               pnpm turbo run eslint
           fi
@@ -65,7 +74,7 @@ jobs:
       - name: Stylelint
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-              pnpm turbo run stylelint --filter=...[${{ github.event.pull_request.base.sha }}]
+              pnpm turbo run stylelint --continue --filter=...[${{ github.event.pull_request.base.sha }}]
           else
               pnpm turbo run stylelint
           fi
@@ -73,16 +82,13 @@ jobs:
       - name: Typecheck
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-              pnpm turbo run typecheck --filter=...[${{ github.event.pull_request.base.sha }}]
+              pnpm turbo run typecheck --continue --filter=...[${{ github.event.pull_request.base.sha }}]
           else
               pnpm turbo run typecheck
           fi
 
       - name: Syncpack
         run: pnpm turbo run syncpack
-
-      - name: Build host
-        run: pnpm build-host
 
       - name: Save Turborepo cache
         id: cache-turborepo-save
