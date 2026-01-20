@@ -14,6 +14,7 @@ on:
   pull_request:
     branches:
       - main
+    # Refer to https://github.com/chromaui/chromatic-cli/blob/main/.github/workflows/chromatic-main-and-prs.yml.
     types:
       - opened
       - synchronize
@@ -46,7 +47,7 @@ jobs:
           CHROMATIC_SHA: ${{ github.event.pull_request.head.sha || github.ref }}
           CHROMATIC_SLUG: ${{ github.repository }}
 
-        # PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
+        # PNPM setup based on https://github.com/pnpm/action-setup#use-cache-to-reduce-installation-time.
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
