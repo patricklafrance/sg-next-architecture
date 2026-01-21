@@ -3,7 +3,7 @@
 # For pushes to main, the base SHA is the before SHA of the push event.
 # This ensures that Chromatic only considers changes relative to main, avoiding ephemeral merge commits.
 # For additional information, refer to: https://www.chromatic.com/docs/github-actions/#recommended-configuration-for-build-events.
-# The reason why "pull_request" events are included is to ensure that draft PRs can be (easily) detected and skipped.
+# The reason why "pull_request" events are included is to easily get access to the PR labels.
 
 name: Chromatic
 
@@ -20,7 +20,7 @@ on:
       - synchronize
       - reopened
       - ready_for_review
-      # To conditionally execute the workflow based on a PR label
+      # To conditionally execute the workflow based on a PR label.
       - labeled
       - unlabeled
 
@@ -42,6 +42,7 @@ jobs:
         if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'run chromatic')
         run: |
           echo "No \"run chromatic\" label present. Skipping Chromatic workflow."
+          # exit as neutral.
           exit 78
 
       - name: Checkout
@@ -95,17 +96,6 @@ jobs:
             echo "VALUE=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Get is draft
-        id: get-is-draft
-        # For PRs, check if the PR is a draft.
-        # For pushes to main, it's always false.
-        run: |
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-            echo "VALUE=${{ github.event.pull_request.draft }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "VALUE=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Get affected Storybooks
         id: affected
         working-directory: ${{ github.workspace }}
@@ -121,7 +111,7 @@ jobs:
           onlyChanged: true
           exitOnceUploaded: true
           autoAcceptChanges: main
-          skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' || steps.get-is-draft.outputs.VALUE == 'true' }}
+          skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' }}
           debug: true
 
       - name: Chromatic - Packages
@@ -132,7 +122,7 @@ jobs:
           onlyChanged: true
           exitOnceUploaded: true
           autoAcceptChanges: main
-          skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' || steps.get-is-draft.outputs.VALUE == 'true' }}
+          skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' }}
           debug: true
 
       - name: Save Turborepo cache
