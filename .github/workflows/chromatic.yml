@@ -51,7 +51,7 @@ jobs:
       - name: Early exit if "run chromatic" label is not present
         if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'run chromatic')
         run: |
-          echo "No \"run chromatic\\" label present. Skipping Chromatic workflow."
+          echo "No \"run chromatic\" label present. Skipping Chromatic workflow."
           exit 78
 
       - name: Checkout
