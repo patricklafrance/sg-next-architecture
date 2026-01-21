@@ -43,13 +43,13 @@ jobs:
     #     if: github.event_name == 'pull_request'
     #     run: |
     #       if [ "${{ github.event_name }}" == "pull_request" ]; then
-    #         echo "VALUE=${{ contains(github.event.pull_request.labels.*.name, 'run-chromatic') }}" >> "$GITHUB_OUTPUT"
+    #         echo "VALUE=${{ contains(github.event.pull_request.labels.*.name, 'run chromatic') }}" >> "$GITHUB_OUTPUT"
     #       else
     #         echo "VALUE=false" >> "$GITHUB_OUTPUT"
     #       fi
 
-      - name: Early exit if Chromatic label is not present
-        if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'run-chromatic')
+      - name: Early exit if "run chromatic" label is not present
+        if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'run chromatic')
         run: exit 0
 
       - name: Checkout
