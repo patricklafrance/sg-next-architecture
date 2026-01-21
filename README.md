@@ -94,7 +94,3 @@ Here's the difference between both of them according to Chat GPT:
 
 - pnpm msw … starts a nested pnpm command while pnpm is still installing, which is what commonly triggers the corrupted workspace-state JSON and the Unexpected end of JSON input.
 - pnpm exec … just runs the MSW binary from the workspace context without re-entering pnpm's "install" logic.
-
-## TODO
-
-- Is it necessary to run Chromatic on the main branch after a PR has been merged?
