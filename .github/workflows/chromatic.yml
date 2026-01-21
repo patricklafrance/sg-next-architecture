@@ -32,7 +32,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  chromatic:
     runs-on: ubuntu-latest
     env:
       TURBO_TELEMETRY_DISABLED: '1'
