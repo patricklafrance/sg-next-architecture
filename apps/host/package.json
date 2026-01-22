@@ -15,7 +15,7 @@
         "serve-build": "pnpm http-server dist/app -p 8081 -P http://localhost:8081? -c-1 --cors",
         "eslint": "eslint . --max-warnings=0 --cache --cache-location node_modules/.cache/eslint",
         "stylelint": "stylelint \"**/*.css\" --allow-empty-input --cache --cache-location node_modules/.cache/stylelint --max-warnings=0",
-        "typecheck": "tsc"
+        "typecheck": "tsgo"
     },
     "dependencies": {
         "@hopper-ui/components": "1.16.4",
@@ -48,6 +48,7 @@
         "@types/react": "19.2.8",
         "@types/react-dom": "19.2.3",
         "@typescript-eslint/parser": "8.53.0",
+        "@typescript/native-preview": "7.0.0-dev.20260122.3",
         "@workleap/browserslist-config": "2.1.5",
         "@workleap/eslint-configs": "1.1.10",
         "@workleap/netlify-skew-protection": "1.0.5",
