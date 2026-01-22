@@ -34,9 +34,9 @@ jobs:
   chromatic:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-      pull-requests: write
+    # permissions:
+    #   contents: write
+    #   pull-requests: write
 
     env:
       TURBO_TELEMETRY_DISABLED: '1'
