@@ -115,6 +115,7 @@ jobs:
           workingDir: apps/home/storybook
           onlyChanged: true
           exitOnceUploaded: true
+          exitZeroOnChanges: false
           autoAcceptChanges: main
           skip: ${{ steps.affected-storybooks.outputs['@apps/home-storybook'] == 'false' }}
           debug: true
@@ -127,6 +128,7 @@ jobs:
           workingDir: packages/storybook
           onlyChanged: true
           exitOnceUploaded: true
+          exitZeroOnChanges: false
           autoAcceptChanges: main
           skip: ${{ steps.affected-storybooks.outputs['@apps/packages-storybook'] == 'false' }}
           debug: true
