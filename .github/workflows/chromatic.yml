@@ -114,7 +114,7 @@ jobs:
           projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
           workingDir: apps/home/storybook
           onlyChanged: true
-          exitOnceUploaded: true
+        #   exitOnceUploaded: true
           exitZeroOnChanges: false
           autoAcceptChanges: main
           skip: ${{ steps.affected-storybooks.outputs['@apps/home-storybook'] == 'false' }}
@@ -127,7 +127,7 @@ jobs:
           projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
           workingDir: packages/storybook
           onlyChanged: true
-          exitOnceUploaded: true
+        #   exitOnceUploaded: true
           exitZeroOnChanges: false
           autoAcceptChanges: main
           skip: ${{ steps.affected-storybooks.outputs['@apps/packages-storybook'] == 'false' }}
