@@ -14,12 +14,8 @@ on:
   pull_request:
     branches:
       - main
-    # Refer to https://github.com/chromaui/chromatic-cli/blob/main/.github/workflows/chromatic-main-and-prs.yml.
     types:
       - opened
-      - synchronize
-      - reopened
-      - ready_for_review
       # To conditionally execute the workflow based on a PR label.
       - labeled
 
