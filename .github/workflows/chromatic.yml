@@ -131,12 +131,9 @@ jobs:
           skip: ${{ steps.affected-storybooks.outputs['@apps/packages-storybook'] == 'false' }}
           debug: true
 
-      - name: Remove label after completion
+      - name: Remove "run chromatic" label after Chromatic completion
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v8
-        if: |
-          success() &&
-          steps.chromatic-home.conclusion != 'failure' &&
-          steps.chromatic-packages.conclusion != 'failure'
         with:
           script: |
             github.rest.issues.removeLabel({
