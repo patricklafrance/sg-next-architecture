@@ -114,8 +114,7 @@ jobs:
           projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
           workingDir: packages/storybook
           onlyChanged: true
-        #   exitOnceUploaded: true
-          exitZeroOnChanges: false
+          exitOnceUploaded: true
           autoAcceptChanges: main
           skip: ${{ steps.affected-storybooks.outputs['@apps/packages-storybook'] == 'false' }}
           debug: true
@@ -127,18 +126,14 @@ jobs:
           projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
           workingDir: apps/home/storybook
           onlyChanged: true
-        #   exitOnceUploaded: true
-          exitZeroOnChanges: false
+          exitOnceUploaded: true
           autoAcceptChanges: main
           skip: ${{ steps.affected-storybooks.outputs['@apps/home-storybook'] == 'false' }}
           debug: true
 
-      - name: Remove label after completion
+      - name: Remove "run chromatic" label after Chromatic completion
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v8
-        if: |
-          success() &&
-          steps.chromatic-home.conclusion != 'failure' &&
-          steps.chromatic-packages.conclusion != 'failure'
         with:
           script: |
             github.rest.issues.removeLabel({
