@@ -22,7 +22,6 @@ on:
       - ready_for_review
       # To conditionally execute the workflow based on a PR label.
       - labeled
-      - unlabeled
 
 env:
   CI: true
@@ -34,6 +33,11 @@ concurrency:
 jobs:
   chromatic:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
     env:
       TURBO_TELEMETRY_DISABLED: '1'
 
@@ -97,13 +101,14 @@ jobs:
           fi
 
       - name: Get affected Storybooks
-        id: affected
+        id: affected-storybooks
         working-directory: ${{ github.workspace }}
         run: pnpm tsx tooling/getAffectedStorybooks.ts
         env:
           BASE_SHA: ${{ steps.get-base-sha.outputs.VALUE }}
 
       - name: Chromatic - Home
+        id: chromatic-home
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
@@ -111,10 +116,11 @@ jobs:
           onlyChanged: true
           exitOnceUploaded: true
           autoAcceptChanges: main
-          skip: ${{ steps.affected.outputs['@apps/home-storybook'] == 'false' }}
+          skip: ${{ steps.affected-storybooks.outputs['@apps/home-storybook'] == 'false' }}
           debug: true
 
       - name: Chromatic - Packages
+        id: chromatic-packages
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.PACKAGES_CHROMATIC_PROJECT_TOKEN }}
@@ -122,8 +128,23 @@ jobs:
           onlyChanged: true
           exitOnceUploaded: true
           autoAcceptChanges: main
-          skip: ${{ steps.affected.outputs['@apps/packages-storybook'] == 'false' }}
+          skip: ${{ steps.affected-storybooks.outputs['@apps/packages-storybook'] == 'false' }}
           debug: true
+
+      - name: Remove label after completion
+        uses: actions/github-script@v8
+        if: |
+          success() &&
+          steps.chromatic-home.conclusion != 'failure' &&
+          steps.chromatic-packages.conclusion != 'failure'
+        with:
+          script: |
+            github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                name: 'run chromatic'
+            });
 
       - name: Save Turborepo cache
         id: cache-turborepo-save

@@ -38,12 +38,6 @@ try {
         throw new Error("[getAffectedStorybooks] The \"BASE_SHA\" environment variable is not set.");
     }
 
-    // // If a pull request base SHA is available, use it as the comparison baseline,
-    // // otherwise, fallback to the default branch.
-    // const filter = baseSha
-    //     ? `--filter=...[${baseSha}]`
-    //     : `--filter=[origin/${DefaultBranch}]`;
-
     // Find packages diverging from the main branch.
     const command = `pnpm turbo ls --filter=...[${baseSha}] --output=json`;
 
