@@ -107,19 +107,6 @@ jobs:
         env:
           BASE_SHA: ${{ steps.get-base-sha.outputs.VALUE }}
 
-      - name: Chromatic - Home
-        id: chromatic-home
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
-          workingDir: apps/home/storybook
-          onlyChanged: true
-        #   exitOnceUploaded: true
-          exitZeroOnChanges: false
-          autoAcceptChanges: main
-          skip: ${{ steps.affected-storybooks.outputs['@apps/home-storybook'] == 'false' }}
-          debug: true
-
       - name: Chromatic - Packages
         id: chromatic-packages
         uses: chromaui/action@latest
@@ -131,6 +118,19 @@ jobs:
           exitZeroOnChanges: false
           autoAcceptChanges: main
           skip: ${{ steps.affected-storybooks.outputs['@apps/packages-storybook'] == 'false' }}
+          debug: true
+
+      - name: Chromatic - Home
+        id: chromatic-home
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.HOME_CHROMATIC_PROJECT_TOKEN }}
+          workingDir: apps/home/storybook
+          onlyChanged: true
+        #   exitOnceUploaded: true
+          exitZeroOnChanges: false
+          autoAcceptChanges: main
+          skip: ${{ steps.affected-storybooks.outputs['@apps/home-storybook'] == 'false' }}
           debug: true
 
       - name: Remove label after completion
