@@ -41,8 +41,7 @@ jobs:
         if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'run chromatic')
         run: |
           echo "No \"run chromatic\" label present. Skipping Chromatic workflow."
-          # exit as neutral.
-          exit 78
+          exit 1
 
       - name: Checkout
         uses: actions/checkout@v6
